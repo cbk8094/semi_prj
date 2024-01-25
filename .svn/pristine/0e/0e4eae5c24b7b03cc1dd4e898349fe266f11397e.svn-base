@@ -1,0 +1,63 @@
+package kr.co.publicvoid.controller.member;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.vo.MemberVO;
+
+
+@WebServlet("/member/profile")
+public class MemberProfileController extends HttpServlet {
+	private MemberService memberService = MemberService.getInstance();
+	private Gson gson = new Gson();
+
+	// 프로필 페이지
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		MemberVO memberVO = (MemberVO) req.getSession().getAttribute("member");
+		
+		if(memberVO != null) {
+			MemberVO member = memberService.findByMember(memberVO.getMemberId());
+			req.setAttribute("memberNickname", member.getMemberNickname());
+			req.setAttribute("memberId", member.getMemberId());
+			req.setAttribute("memberIntroduce", member.getMemberIntroduce());
+
+			req.getRequestDispatcher("/WEB-INF/views/member/profile.jsp").forward(req, resp);
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/member/login");
+		}
+		
+	}
+
+	// 프로필 포스트(방명록?)
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	
+	
+	// 프로필 수정(닉네임, 자기소개)
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String str = new BufferedReader(new InputStreamReader(req.getInputStream())).lines().collect(Collectors.joining());
+		MemberVO memberNickname = gson.fromJson(str, MemberVO.class);
+        if (memberService.modifyNickname(memberNickname)> 0) {
+            resp.setStatus(200);
+            resp.getWriter().print("success");
+        } else {
+            resp.setStatus(500);
+        }
+	}
+}

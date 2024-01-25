@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.PurchaseMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class PurchaseService {
+	private PurchaseMapper purchaseMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(PurchaseMapper.class);
+}

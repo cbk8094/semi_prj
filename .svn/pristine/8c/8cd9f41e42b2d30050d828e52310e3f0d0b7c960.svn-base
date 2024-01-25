@@ -1,0 +1,169 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.dto.AdminSearchDTO;
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.dto.GameSearchDTO;
+import kr.co.publicvoid.mapper.GameImageMapper;
+import kr.co.publicvoid.mapper.GameLanguageMapper;
+import kr.co.publicvoid.mapper.GameMapper;
+import kr.co.publicvoid.mapper.GenreMapper;
+import kr.co.publicvoid.mapper.PublisherMapper;
+import kr.co.publicvoid.mapper.ReviewMapper;
+import kr.co.publicvoid.mapper.SaleMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.GameImageVO;
+import kr.co.publicvoid.vo.GameLanguageVO;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.GenreVO;
+import kr.co.publicvoid.vo.PublisherVO;
+import kr.co.publicvoid.vo.ReviewVO;
+import kr.co.publicvoid.vo.SaleVO;
+
+public class GameService {
+	private static final GameService INSTANCE = new GameService();
+
+	private GameService() {
+	}
+
+	public static GameService getInstance() {
+		return INSTANCE;
+	}
+
+	public List<GameVO> getList() {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			List<GameVO> gameList = gameMapper.selectList();
+
+			for (GameVO gameVO : gameList) {
+				getMoreGameInfo(sqlSession, gameVO);
+			}
+
+			return gameList;
+		}
+	}
+
+	// 관리자 페이지 페이징 처리 목록 구현
+	public List<GameVO> getListAdmin(Criteria criteria) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			List<GameVO> gameList = gameMapper.getListWithPaging(criteria);
+
+			for (GameVO gameVO : gameList) {
+				getMoreGameInfo(sqlSession, gameVO);
+			}
+
+			return gameList;
+		}
+	}
+
+	public int getTotal(Criteria criteria) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			int gameList = gameMapper.getTotal(criteria);
+
+			return gameList;
+		}
+
+	}
+	// 관리자 페이지 등록
+	public void insert(GameVO gameVO) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			gameMapper.insert(gameVO);
+		}
+	}
+	// 관리자 페이지 수정
+	public void update(GameVO gameVO) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			gameMapper.update(gameVO);
+		}
+	}
+	
+	
+
+	public List<GameVO> getFilteredAndPagingList(GameSearchDTO gameSearchDTO) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			List<GameVO> gameList = gameMapper.selectListByFilterAndPaging(gameSearchDTO);
+
+			for (GameVO gameVO : gameList) {
+				getMoreGameInfo(sqlSession, gameVO);
+			}
+
+			return gameList;
+		}
+	}
+
+	// 관리자 페이지 조회 페이징처리 xx 안씀
+	public List<GameVO> getFilteredAndPagingList(AdminSearchDTO AdminSearchDTO) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			List<GameVO> gameList = gameMapper.selectListByFilterAndPagingAdmin(AdminSearchDTO);
+
+			for (GameVO gameVO : gameList) {
+				getMoreGameInfo(sqlSession, gameVO);
+			}
+
+			return gameList;
+		}
+	}
+
+	public GameVO getOne(Long gameNo) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+			GameVO gameVO = gameMapper.selectOne(gameNo);
+
+			return getMoreGameInfo(sqlSession, gameVO);
+		}
+	}
+
+	private GameVO getMoreGameInfo(SqlSession sqlSession, GameVO gameVO) {
+		GameImageMapper gameImageMapper = sqlSession.getMapper(GameImageMapper.class);
+		List<GameImageVO> gameImageList = gameImageMapper.selectListByGameNo(gameVO.getGameNo());
+		gameVO.setGameImageList(gameImageList);
+
+		GameLanguageMapper gameLanguageMapper = sqlSession.getMapper(GameLanguageMapper.class);
+		List<GameLanguageVO> gameLanguageList = gameLanguageMapper.selectListByGameNo(gameVO.getGameNo());
+		gameVO.setGameLanguageList(gameLanguageList);
+
+		ReviewMapper reviewMapper = sqlSession.getMapper(ReviewMapper.class);
+		List<ReviewVO> reviewList = reviewMapper.selectListByGameNo(gameVO.getGameNo());
+		gameVO.setReviewList(reviewList);
+
+		SaleMapper saleMapper = sqlSession.getMapper(SaleMapper.class);
+		SaleVO saleVO = saleMapper.selectOneByGameNoNow(gameVO.getGameNo());
+		gameVO.setSaleVO(saleVO);
+
+		PublisherMapper publisherMapper = sqlSession.getMapper(PublisherMapper.class);
+		PublisherVO publisherVO = publisherMapper.selectOne(gameVO.getPublisherNo());
+		gameVO.setPublisherVO(publisherVO);
+
+		GenreMapper genreMapper = sqlSession.getMapper(GenreMapper.class);
+		GenreVO genreVO = genreMapper.selectOne(gameVO.getGenreNo());
+		gameVO.setGenreVO(genreVO);
+
+		return gameVO;
+	}
+
+	// 판매량 수정
+	public int updateSaleCount(Long gameNo, int saleCount) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession()) {
+			GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+
+			int result = gameMapper.updateSaleCount(gameNo, saleCount);
+
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+			return result;
+		}
+	}
+}

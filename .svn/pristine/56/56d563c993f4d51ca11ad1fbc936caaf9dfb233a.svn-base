@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.GenreMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class GenreService {
+	private GenreMapper genreMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GenreMapper.class);
+}

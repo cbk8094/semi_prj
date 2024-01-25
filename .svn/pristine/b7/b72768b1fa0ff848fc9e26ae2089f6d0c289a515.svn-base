@@ -1,0 +1,36 @@
+package kr.co.publicvoid.controller.member;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.vo.MemberVO;
+
+@WebServlet("/member/logout")
+public class MemberLogoutController extends HttpServlet {
+	private MemberService memberService = MemberService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = (MemberVO) req.getSession().getAttribute("member");
+		
+		if(memberVO == null) {
+			memberService.alert(resp, "이미 로그아웃하신 상태입니다", true);
+		}else {
+			req.setAttribute("status", "로그인 함");
+			
+			req.getSession().invalidate();
+			
+			memberService.alert(resp, "로그아웃 하셨습니다", "/");
+		}
+	
+		resp.sendRedirect("/");
+	}
+	
+	
+}

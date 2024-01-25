@@ -1,0 +1,41 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.dto.BoardCriteria2;
+import kr.co.publicvoid.vo.BoardVO;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
+public interface BoardMapper {
+	// 등록
+	int insert(BoardVO boardVO);
+	
+	// 수정
+	int update(BoardVO boardVO);
+	
+	// 삭제
+	int delete(Long boardNo);
+	
+	List<BoardVO> getList();
+	
+	// 목록 조회
+	List<BoardVO> selectList();
+	
+	// 단일 조회
+	BoardVO selectOne(Long boardNo);
+
+	List<BoardVO> getList(BoardVO vo);
+	
+	List<BoardVO> getListQna(BoardVO vo);
+
+	List<BoardVO> getListByMemberno(@Param("memberno") Long memberno, @Param("cri") BoardCriteria2 criteria2);
+	
+	int getCount(BoardCriteria2 boardCriteria2);
+	
+}

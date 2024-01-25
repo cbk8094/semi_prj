@@ -1,0 +1,45 @@
+package kr.co.publicvoid.controller.board;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.BoardService;
+import kr.co.publicvoid.vo.BoardVO;
+
+@WebServlet("/board/qnadetail")
+public class BoardQnaDetailController extends HttpServlet{
+	private BoardService boardService = new BoardService();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		List<BoardVO> boardList = boardService.getList();
+		System.out.println(boardService);
+		String boardNoStr = req.getParameter("boardNo");
+	    Long boardNo = Long.parseLong(boardNoStr);
+	    
+	    // req의 rowNum으로 덮어써서 상세페이지의 rowNum값을 qna의 rowNum으로 나오게
+	    String rowNumStr = req.getParameter("rowNum");
+	    Long rowNum = Long.parseLong(rowNumStr);
+	    BoardVO board = BoardVO.builder()
+	    		.boardNo(boardNo)
+		        .build();
+	    
+	 // QNA 데이터 재조회(특정 화면으로 이동하고자 하는 경우 재조회를 통해 데이터를 다시 조회하여 넘김)
+	    List<BoardVO> boardList = boardService.getList(board);
+		System.out.println(boardService);
+		
+		BoardVO result = boardList.get(0);
+		result.setRowNum(rowNum);
+		
+	    //해당 boardNo가 PK이기 때문에 row가 하나밖에 안나와서 첫번째 인덱스를 호출
+	    req.setAttribute("boardData", boardList.get(0));
+
+		req.getRequestDispatcher("/WEB-INF/views/board/qnadetail.jsp").forward(req, resp);
+	}
+}

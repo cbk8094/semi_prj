@@ -1,0 +1,12 @@
+package kr.co.publicvoid.service;
+
+public class GuestbookService {
+	public static final GuestbookService INSTANCE = new GuestbookService();
+	
+	private GuestbookService() {}
+	
+	public static GuestbookService getInstance() {
+		return INSTANCE;
+	}
+	
+}

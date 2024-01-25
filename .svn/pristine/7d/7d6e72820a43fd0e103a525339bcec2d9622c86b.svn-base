@@ -1,0 +1,28 @@
+package kr.co.publicvoid.controller.member;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.MemberService;
+
+@WebServlet("/member")
+public class MemberSignupController extends HttpServlet{
+	private MemberService memberService = new MemberService();
+	
+	// 회원가입 폼 이동
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doGet(req, resp);
+	}
+	
+	// 회원가입 처리
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doPost(req, resp);
+	}
+}

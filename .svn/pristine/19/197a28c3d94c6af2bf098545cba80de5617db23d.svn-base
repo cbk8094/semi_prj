@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+/* 폰트적용 프리텐다드 폰트*/
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+body {
+	font-family: 'Pretendard-Regular';
+}
+/* 커스텀 색상 관련 */
+/* 최대한 기존 부트스트랩 4 클래스 색상과 비슷하게 하겠음 */
+.bg-custom-black{
+    background-color: #18181b !important;
+  }
+  
+.bg-custom-blue{
+    background-color: #1f213b !important;
+}
+
+.border-custom-black{
+	border-color: #2d2f3e !important;
+}
+
+.border-top-custom-black{
+  border-color: #333 !important;
+}
+
+.filter-invert{
+	filter: invert(1);
+}
+
+/* QnA_Board */
+.bg-color{
+  background-color:#1F213B;
+}
+.board-title{
+  margin-top:2rem;
+  color: #ffffff;
+}
+.vertical-line {
+  border-left: 1px solid #717171;
+}
+.board-content{
+  color: #ffffff;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+.board-table-title{
+  text-align: center;
+  margin-bottom: .5rem;
+  background-color: #26272B;
+  border-radius: 8px;
+  height: 3rem;
+ }
+.board-line{
+  margin-top: 0;
+  margin-bottom: 0;
+  border: .1px solid #717171;
+  margin-left: 0;
+  margin-right: 0;
+}
+.wait-answer{
+  padding-bottom:0;
+  padding-top:0;
+  margin-top: 12px;
+  text-align: center;
+  display:block;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.done-answer{
+  padding-bottom:0;
+  padding-top:0;
+  margin-top: 12px;
+  text-align: center;
+  display:block;
+  background: red;
+  border-radius: 5px;
+  color: #ffffff;
+  height: auto;
+}
+.qna-write{
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+.table thead th {
+  border-bottom:0;
+}
+.table td, .table th{
+  border-top: 0;
+}
+/*hr라인 회색*/
+.line{
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom:1px solid #717171;
+}
+/*텍스트 중앙정렬 */
+.text-align-center{
+  text-align: center;
+}
+/*검색창 폭 500 */
+.search-w-500{
+ width: 500px;
+}
+/* 텍스트그림자 */
+.text-shadow{
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 1);
+	color: #ffffff; 
+}
+.none-answer{
+	border-radius: 8px;
+}
+/* 화면 너비가 1000px 미만일 때 (작은 화면) */
+@media (max-width: 1000px) {
+    .card-custom {
+        height: auto; /* 자동 높이 설정 */
+    }
+}
+
+/* 화면 너비가 1000px 이상일 때 (중간과 큰 화면) */
+@media (min-width: 1000px) {
+    .card-custom {
+        height: 300px;
+    }
+}

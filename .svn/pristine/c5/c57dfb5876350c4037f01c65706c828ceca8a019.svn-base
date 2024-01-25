@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.NotifyMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class NotifyService {
+	private NotifyMapper notifyMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(NotifyMapper.class);
+}

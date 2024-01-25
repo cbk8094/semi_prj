@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.GuestbookMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into guestbook(member_no, writer_no, guestbook_content) 
+		values (#{memberNo}, #{writerNo}, #{guestbookContent})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update guestbook set 
+		member_no = #{memberNo}, writer_no = #{writerNo}, guestbook_content = #{guestbookContent}
+		where guestbook_no = #{guestbookNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from guestbook where guestbook_no = #{guestbookNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="GuestbookVO">
+		select * from guestbook order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="GuestbookVO">
+		select * from guestbook where guestbook_no = #{guestbookNo}
+	</select>
+
+	<!-- (받은) 회원 번호로 목록 조회 -->
+	<select id="selectListByMemberNo" resultType="GuestbookVO">
+		select * from guestbook
+		where member_no = #{memberNo}
+		order by 1 desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

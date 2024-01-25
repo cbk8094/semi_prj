@@ -1,0 +1,34 @@
+package kr.co.publicvoid.service;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.mapper.PurchaseMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.PurchaseVO;
+
+public class PurchaseService {
+	public static final PurchaseService INSTANCE = new PurchaseService();
+
+	private PurchaseService() {}
+	
+	public static PurchaseService getInstance() {
+		return INSTANCE;
+	}
+	
+	// 구매내역에 추가
+	public int register(PurchaseVO purchaseVO) {
+		try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession()) {
+			PurchaseMapper purchaseMapper = sqlSession.getMapper(PurchaseMapper.class);
+			int result = purchaseMapper.insert(purchaseVO);
+
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+			return result;
+		}
+	}
+	
+}

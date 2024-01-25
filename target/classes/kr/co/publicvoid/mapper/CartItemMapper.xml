@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.CartItemMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into cart_item(cart_no, game_no) 
+		values (#{cartNo}, #{gameNo})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update cart_item set 
+		cart_no = #{cartNo}, game_no = #{gameNo}
+		where cart_item_no = #{cartItemNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from cart_item where cart_item_no = #{cartItemNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="CartItemVO">
+		select * from cart_item order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="CartItemVO">
+		select * from cart_item where cart_item_no = #{cartItemNo}
+	</select>
+
+	<!-- 목록 조회 -->
+	<select id="selectListByCartNo" resultType="CartItemVO">
+		select * from cart_item where cart_no = #{cartNo}
+		order by 1 desc
+	</select>
+	
+	<!-- 장바구니 번호, 게임 번호로 단일 조회 -->
+	<select id="selectOneByCartNoAndGameNo" resultType="CartItemVO">
+		select * from cart_item 
+		where cart_no = #{cartNo} and game_no = #{gameNo}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,131 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+import java.util.Random;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.mapper.MemberImageMapper;
+import kr.co.publicvoid.mapper.MemberMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.MemberImageVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+public class MemberService {
+	private MemberService(){}
+	private static class SingleTonHolder{
+		public static final MemberService INSTANCE = new MemberService();
+	}
+	public static MemberService getInstance() {
+		return SingleTonHolder.INSTANCE;
+	}
+	
+	private MemberMapper memberMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(MemberMapper.class);
+	
+	public MemberVO findByMember(String memberId) {
+		return memberMapper.read2(memberId);
+	}
+	
+	public List<MemberVO> selectList() {
+		return memberMapper.getList();
+	}
+	
+	public int signup(MemberVO vo) {
+		return memberMapper.insert(vo);
+	}
+	
+	public int modify(MemberVO memberVO) {
+		return memberMapper.update(memberVO);
+	}
+
+	// 랜덤 번호 생성
+	private long randomNumber(long min, long max) {
+		Random random = new Random();
+		return Math.abs(min  + random.nextLong() % (max - min + 1));
+	}
+	
+	// 번호를 데이터베이스 전달하기 위해 String 변환 및 숫자 제한, 앞자리에 0 부여
+	public String randomMemberCode() {
+		long randomNumber = randomNumber(1, 999999999);
+		String memberCode = String.format("%02d", randomNumber);
+		return memberCode;
+	}
+	
+	// 중복된 회원번호가 발급되었을 경우 새로운 발급할 용도
+	// codeRead 라는 count 쿼리를 통해 0 또는 1 값을 받아오고
+	// 값이 0일 아닐 경우(중복일 경우) 반복 
+	public String newMemberCode() {
+		String rc = randomMemberCode();
+		while(!memberMapper.codeCnt(rc).equals(0)) {
+			rc = randomMemberCode();
+		}
+		return rc;
+	}
+	
+	
+	// 아이디 중복 체크 용도
+	// 아이디의 경우 회원코드와 달리 클라이언트가 요청한 정보를 바탕으로 DB를 조회해야해서
+	// 컨트롤러를 경유하는 설계를 해야하는 것 같다.
+	
+	// 삼항 연사자를 이용하여 중복된 아이디가 존재하면 true를 반환하고, 없다면 false를 반환
+	public boolean duplicateId(String memberId) {
+		return memberMapper.selectOneById(memberId) > 0 ? true : false;
+	}
+	
+	// 로그인 아이디 패스워드 조회 용도
+	public boolean findIdPw(MemberVO memberVO) {
+		return memberMapper.findIdPw(memberVO) > 0 ? true : false;
+	}
+	
+	// 아예 이미지도 같이 가져오게 함
+	public MemberVO getOne(Long memberNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+            MemberImageMapper memberImageMapper = sqlSession.getMapper(MemberImageMapper.class);
+            
+            MemberVO member = memberMapper.selectOne(memberNo);
+            member.setMemberImageVO(memberImageMapper.selectOneByMemberNo(memberNo));
+            
+            return memberMapper.selectOne(memberNo);
+        }
+    }
+	
+	public boolean isAdmin(MemberVO vo) {
+		return memberMapper.isAdmin(vo.getMemberNo()) > 0 ? true : false;
+	}
+	
+	// 회원의 포인트 수정
+	public int updatePoint(Long memberNo, int point) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession()) {
+            MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+            
+            int result = memberMapper.updatePoint(memberNo, point);
+
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+			return result;
+        }
+	}
+	
+	// 회원의 누적구매액 수정
+	public int updatePurchase(Long memberNo, int purchase) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession()) {
+            MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+            
+            int result = memberMapper.updatePurchase(memberNo, purchase);
+
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+			return result;
+        }
+	}
+	
+}

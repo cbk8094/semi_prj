@@ -1,0 +1,16 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
+public class GameReplyVO {
+	private Long rno;
+	private String reply;
+	private Date replyDate;
+	private Date updateDate;
+	
+	private String replyer;
+	private Long gno;
+}

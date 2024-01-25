@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.PurchaseMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into purchase(member_no, game_no, purchase_price) 
+		values (#{memberNo}, #{gameNo}, #{purchasePrice})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update purchase set 
+		member_no = #{memberNo}, game_no = #{gameNo}, purchase_price = #{purchasePrice}, purchase_date = #{purchaseDate}, is_refund = #{isRefund}
+		where purchase_no = #{purchaseNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from purchase where purchase_no = #{purchaseNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="PurchaseVO">
+		select * from purchase order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="PurchaseVO">
+		select * from purchase where purchase_no = #{purchaseNo}
+	</select>
+	
+</mapper>

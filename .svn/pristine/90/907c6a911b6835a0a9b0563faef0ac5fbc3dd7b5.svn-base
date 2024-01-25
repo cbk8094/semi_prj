@@ -1,0 +1,35 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 게임 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class GameVO { // 게임
+	private Long gameNo; // 게임번호
+	private Long genreNo; // 장르번호
+	private Long publisherNo; // 퍼블리셔번호
+	private String gameName; // 게임명
+	private String gameDesc; // 게임설명
+	private String gameVideoUrl; // 게임영상주소
+	private int gamePrice; // 게임가격
+	private String gameDeveloper; // 개발사
+	private Date gameReleaseDate; // 출시일
+	private int gameAgeLimit; // 연령제한 (0: 전체, 1: 12세, 2: 15세, 3: 18세, 4: 분류거부)
+	private String gameSpec; // 권장사양
+	private int gameSaleCount; // 판매량
+	private Date regDate; // 등록일자
+}

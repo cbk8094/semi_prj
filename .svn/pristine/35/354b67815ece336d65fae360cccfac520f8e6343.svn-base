@@ -1,0 +1,22 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+
+import kr.co.publicvoid.vo.MemberVO;
+
+public interface MemberMapper {
+	// 등록
+	int insert(MemberVO memberVO);
+	
+	// 수정
+	int update(MemberVO memberVO);
+	
+	// 삭제
+	int delete(Long memberNo);
+	
+	// 목록 조회
+	List<MemberVO> selectList();
+	
+	// 단일 조회
+	MemberVO selectOne(Long memberNo);
+}

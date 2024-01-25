@@ -1,0 +1,29 @@
+package kr.co.publicvoid.controller.game;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.vo.GameVO;
+
+@WebServlet("/game/library")
+public class GameLibraryController extends HttpServlet{
+	private GameService gameService = GameService.getInstance();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		List<BoardVO> boardList = boardService.getList();
+		System.out.println(gameService);
+		List<GameVO> gamelist = null;
+		
+		req.setAttribute("gamelist", gamelist);
+
+		req.getRequestDispatcher("/WEB-INF/views/game/library.jsp").forward(req, resp);
+	}
+}

@@ -1,0 +1,142 @@
+package kr.co.publicvoid.controller.cart;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.dto.CartItemListDTO;
+import kr.co.publicvoid.service.CartItemService;
+import kr.co.publicvoid.service.CartService;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.service.SaleService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.CartItemVO;
+import kr.co.publicvoid.vo.CartVO;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+@WebServlet("/cart")
+public class CartViewController extends HttpServlet{
+	private CartService cartService = CartService.getInstance();
+	private CartItemService cartItemService = CartItemService.getInstance();
+	private GameService gameService = GameService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	private SaleService saleService = SaleService.getInstance();
+	
+	// 가입 성공하면 기본적으로 Cart는 하나씩 주도록 하기
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		// 자기것만 볼 수 있음
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.alert(resp, "로그인해주세요", "/member/login");
+			return;
+		}
+		
+		Long memberNo = memberVO.getMemberNo();
+		
+		memberVO = memberService.getOne(memberNo);
+		CartVO cartVO = cartService.getOneByMemberNo(memberNo);
+		cartVO.setMemberVO(memberVO);
+		
+		List<CartItemVO> cartItemList = cartItemService.getListByCartNo(cartVO.getCartNo());
+		
+		cartItemList.stream().map(cartItem -> {
+			GameVO gameVO = gameService.getOne(cartItem.getGameNo());
+			
+			// 세일 정보까지 포함하여 cartItem에 담음
+			gameVO.setSaleVO(saleService.getOneByGameNoNow(gameVO.getGameNo()));
+			cartItem.setGameVO(gameVO);
+			
+			return cartItem;
+		}).collect(Collectors.toList());
+
+		// 정가 총합
+		int totalPrice = cartItemList.stream().mapToInt(cartItem -> cartItem.getGameVO().getGamePrice()).sum();
+		
+		// 세일가 총합
+		int totalSalePrice = cartItemList.stream().mapToInt(cartItem -> cartItem.getGameVO().getDiscountedPrice()).sum();
+		int discountedPrice = totalPrice - totalSalePrice;
+		
+		req.setAttribute("totalPrice", totalPrice);
+		req.setAttribute("totalSalePrice", totalSalePrice);
+		req.setAttribute("discountedPrice", discountedPrice);
+		
+		req.setAttribute("cartItemList", cartItemList);
+		
+		req.setAttribute("member", memberVO);
+		
+		req.getRequestDispatcher(WebUtils.VIEW_PATH + "/cart/view.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		
+		Long memberNo = memberVO.getMemberNo();
+		
+		memberVO = memberService.getOne(memberNo);
+		CartVO cartVO = cartService.getOneByMemberNo(memberNo);
+		cartVO.setMemberVO(memberVO);
+		
+		List<CartItemVO> cartItemList = cartItemService.getListByCartNo(cartVO.getCartNo());
+		
+		cartItemList.stream().map(cartItem -> {
+			GameVO gameVO = gameService.getOne(cartItem.getGameNo());
+			
+			// 세일 정보까지 포함하여 cartItem에 담음
+			gameVO.setSaleVO(saleService.getOneByGameNoNow(gameVO.getGameNo()));
+			cartItem.setGameVO(gameVO);
+			
+			return cartItem;
+		}).collect(Collectors.toList());
+
+		// 정가 총합
+		int totalPrice = cartItemList.stream().mapToInt(cartItem -> cartItem.getGameVO().getGamePrice()).sum();
+		
+		// 세일가 총합
+		int totalSalePrice = cartItemList.stream().mapToInt(cartItem -> cartItem.getGameVO().getDiscountedPrice()).sum();
+		int discountedPrice = totalPrice - totalSalePrice;
+		
+		CartItemListDTO cartItemListDTO = new CartItemListDTO();
+		
+		cartItemListDTO.setCartItemList(cartItemList);
+		cartItemListDTO.setTotalPrice(totalPrice);
+		cartItemListDTO.setTotalSalePrice(totalSalePrice);
+		cartItemListDTO.setDiscountedPrice(discountedPrice);
+
+		WebUtils.jsonPrintREST(resp, true, 0, "장바구니 아이템 리스트", cartItemListDTO);
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

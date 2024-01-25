@@ -1,0 +1,31 @@
+package kr.co.publicvoid.service;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.mapper.CartMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.CartVO;
+
+public class CartService {
+	public static final CartService INSTANCE = new CartService();
+
+	private CartService() {}
+	
+	public static CartService getInstance() {
+		return INSTANCE;
+	}
+	
+	public CartVO getOne(Long cartNo) {
+	    try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+	        CartMapper cartMapper = sqlSession.getMapper(CartMapper.class);
+	        return cartMapper.selectOne(cartNo);
+	    }
+	}
+
+	public CartVO getOneByMemberNo(Long memberNo) {
+	    try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+	        CartMapper cartMapper = sqlSession.getMapper(CartMapper.class);
+	        return cartMapper.selectOneByMemberNo(memberNo);
+	    }
+	}
+}

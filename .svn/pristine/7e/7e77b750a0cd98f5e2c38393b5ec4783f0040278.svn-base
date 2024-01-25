@@ -1,0 +1,97 @@
+package kr.co.publicvoid.controller.admin.game;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.dto.AdminSearchDTO;
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.dto.GameSearchDTO;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.GenreService;
+import kr.co.publicvoid.service.LanguageService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.MemberVO;
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("/admin")
+@Log4j
+public class AdminGameListController extends HttpServlet{
+
+	private GameService gameService = GameService.getInstance();
+	private GenreService genreService = GenreService.getInstance();
+	private LanguageService languageService = LanguageService.getInstance();
+
+	// 전체 목록 조회
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		Criteria criteria = new Criteria();
+		
+		
+		
+//		로그인 확인 완료
+		if(memberVO == null) {
+			WebUtils.alert(resp, "로그인해주세요", "/member/login");
+			return;
+		}
+		
+		if(memberVO.isAdmin() == false) {
+			WebUtils.alert(resp, "잘못된 접근입니다", "/");
+			return;
+		}
+		
+		
+//		req.setAttribute("gameList", gameService.getFilteredAndPagingList(new GameSearchDTO()));
+		req.setAttribute("gameList", gameService.getListAdmin(criteria));
+		req.setAttribute("page", new AdminSearchDTO(criteria, gameService.getTotal(criteria)));
+		req.setAttribute("genreList", genreService.getList());
+		req.setAttribute("languageList", languageService.getList());
+//		log.info(gameService.getFilteredAndPagingList(new GameSearchDTO()));
+		req.getRequestDispatcher("/WEB-INF/views/admin/list.jsp").forward(req, resp);
+	}
+	
+	// 페이징 및 필터링된 목록 조회
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		
+		if(memberVO.isAdmin() == false) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		
+//		AdminSearchDTO adminSearchDTO = new AdminSearchDTO(Integer.parseInt(req.getParameter("nowPage")));
+		
+//		adminSearchDTO.setKeyword(req.getParameter("title"));
+//		adminSearchDTO.setGenreNo(Long.parseLong(req.getParameter("genre")));
+//		adminSearchDTO.setPriceLimit(Integer.parseInt(req.getParameter("price")));
+
+		List<String> languageNoList = null;
+		if(req.getParameter("language").length() > 0) {
+			String[] languageNoArr = req.getParameter("language").split("\\|");
+			languageNoList = Arrays.asList(languageNoArr); 
+		}
+//		adminSearchDTO.setLanguageNoList(languageNoList);
+//		adminSearchDTO.setSale(req.getParameter("sale").equals("1") ? true : false);
+		
+//		log.info(adminSearchDTO);
+		
+//		List<GameVO> gameList = gameService.getFilteredAndPagingList(adminSearchDTO);
+		
+//		WebUtils.jsonPrint(resp, gameList);
+		
+	}
+}
+

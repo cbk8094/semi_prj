@@ -1,0 +1,13 @@
+package kr.co.publicvoid.service;
+
+public class WishService {
+	public static final WishService INSTANCE = new WishService();
+
+	private WishService() {}
+	
+	public static WishService getInstance() {
+		return INSTANCE;
+	}
+	
+	
+}

@@ -1,0 +1,87 @@
+package kr.co.publicvoid.controller.wish;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.service.WishService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.MemberVO;
+import kr.co.publicvoid.vo.WishVO;
+
+@WebServlet("/wish/list")
+public class WishListController extends HttpServlet{
+	private WishService wishService = WishService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	private GameService gameService = GameService.getInstance();
+
+	// 위시리스트 목록 (누구나 볼 수 있음)
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if(req.getParameter("memberNo") == null) {
+			WebUtils.alertBack(resp, "잘못된 접근입니다");
+			return;
+		}
+		
+		Long memberNo = Long.parseLong(req.getParameter("memberNo"));
+		
+		MemberVO memberVO = memberService.getOne(memberNo);
+		
+		MemberVO loginMember = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.alertBack(resp, "존재하지 않는 회원입니다");
+			return;
+		}else {
+			if(loginMember != null) {
+				if(WebUtils.isSameMember(memberVO, loginMember)) {
+					req.setAttribute("mine", true);
+				}
+			}
+		}
+		
+		req.setAttribute("member", memberVO);
+		
+		List<WishVO> wishList = wishService.getListByMemberNo(memberNo);
+
+		wishList.stream().map(wish -> {
+			GameVO gameVO = gameService.getOneReq(wish.getGameNo());
+			
+			wish.setGameVO(gameVO);
+			
+			return wish;
+		}).collect(Collectors.toList());
+		
+		req.setAttribute("wishList", wishList);
+
+		req.getRequestDispatcher(WebUtils.VIEW_PATH + "/wish/list.jsp").forward(req, resp);
+	}
+	
+	// 비동기로 불러옴
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

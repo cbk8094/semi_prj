@@ -1,0 +1,34 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 회원 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MemberVO { // 회원
+	private Long memberNo; // 회원번호
+	private String memberCode; // 회원코드
+	private String memberId; // 아이디
+	private String memberPw; // 비밀번호
+	private String memberNickname; // 닉네임
+	private String memberIntroduce; // 자기소개
+	private int memberPoint; // 포인트
+	private int memberPurchase; // 누적구매액
+	private boolean isAdmin; // 관리자여부 (기본값은 false)
+	private boolean isDeleted; // 삭제여부
+	private Date regDate; // 등록일자
+}

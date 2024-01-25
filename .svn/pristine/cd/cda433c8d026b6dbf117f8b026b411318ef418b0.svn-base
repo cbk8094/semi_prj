@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/* 폰트적용 프리텐다드 폰트*/
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+body {
+	font-family: 'Pretendard-Regular';
+}
+/* 커스텀 색상 관련 */
+/* 최대한 기존 부트스트랩 4 클래스 색상과 비슷하게 하겠음 */
+.bg-custom-black{
+    background-color: #18181b !important;
+}
+
+.bg-custom-blue{
+	background-color: #1f213b !important;
+}
+
+.border-custom-black{
+	border-color: #2d2f3e !important;
+}
+
+.border-top-custom-black{
+	border-color: #333 !important;
+}
+
+.filter-invert{
+	filter: invert(1);
+}
+
+/* board */
+.boardtable {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+.boardtable tr{
+    background-color: #26272B;
+}
+.boardtable th{
+    color: #ffffff;
+    text-align: center;
+}
+.boardtable th,
+.boardtable td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+.boardtable thead th {
+  vertical-align: bottom;
+
+}
+
+.boardtable tbody + tbody {
+}

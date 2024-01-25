@@ -1,0 +1,86 @@
+package kr.co.publicvoid.controller.file;
+
+import java.io.IOException;
+import java.util.UUID;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import kr.co.publicvoid.dto.UploadDTO;
+import kr.co.publicvoid.util.UploadUtils;
+import kr.co.publicvoid.util.WebUtils;
+import lombok.extern.log4j.Log4j;
+
+// S3을 이용한 파일 업로드 컨트롤러
+
+@WebServlet("/upload")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1024 * 1024 * 11 // 11MB
+)
+@Log4j
+public class FileUploadController extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Part filePart = req.getPart("file");
+		String fileName = getFileName(filePart);
+		
+		log.info("fileName: " + fileName);
+		
+		// 파일명은 uuid로 만들 것임
+		UUID uuid = UUID.randomUUID();
+		fileName = uuid.toString();
+
+        try {
+            // 파일 업로드를 위한 유틸리티 클래스 사용
+            UploadDTO uploadDTO = UploadUtils.uploadFile(filePart, fileName, getServletContext());
+            
+            if(uploadDTO.isSuccess() == false) {
+            	WebUtils.jsonPrintREST(resp, false, 0, uploadDTO.getMessage(), null);
+            }
+            
+            WebUtils.jsonPrintREST(resp, true, 0, "파일이 성공적으로 업로드되었습니다. 로컬 경로: " + uploadDTO.getLocalFilePath(), null);
+            
+        } catch (Exception e) {
+        	WebUtils.jsonPrintREST(resp, false, 0, "파일 업로드 에러", e.getMessage());
+        }
+
+    }
+
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        int beginIndex = contentDisposition.indexOf("filename=") + 10;
+        int endIndex = contentDisposition.length() - 1;
+
+        return contentDisposition.substring(beginIndex, endIndex);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

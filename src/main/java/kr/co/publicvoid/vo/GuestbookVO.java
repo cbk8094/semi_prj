@@ -1,0 +1,29 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 방명록 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class GuestbookVO { // 방명록
+	private Long guestbookNo; // 방명록번호
+	private Long memberNo; // 회원번호
+	private Long writerNo; // 글쓴회원번호
+	private String guestbookContent; // 방명록내용
+	private Date regDate; // 등록일자
+	
+	private MemberVO memberVO; // 방명록 남긴 사람 회원 정보
+}

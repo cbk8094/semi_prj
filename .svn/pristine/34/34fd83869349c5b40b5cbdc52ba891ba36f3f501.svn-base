@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.ReviewMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class ReviewService {
+	private ReviewMapper reviewMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(ReviewMapper.class);
+}

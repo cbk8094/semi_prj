@@ -1,0 +1,22 @@
+package kr.co.publicvoid.controller.main;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("")
+@Log4j
+public class MainController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		log.info("main...");
+		req.getRequestDispatcher("/WEB-INF/views/main/index.jsp").forward(req, resp);
+		
+	}
+}

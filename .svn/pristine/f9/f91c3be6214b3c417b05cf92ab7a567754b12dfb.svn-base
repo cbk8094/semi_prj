@@ -1,0 +1,24 @@
+package kr.co.publicvoid.controller.library;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.LibraryService;
+
+@WebServlet("/library/list")
+public class LibraryListController extends HttpServlet{
+	
+	private LibraryService libraryService = LibraryService.getInstance();
+	
+	// 특정 회원의 라이브러리. 전부 볼 수 있음 (로그인 안 해도)
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+		
+}

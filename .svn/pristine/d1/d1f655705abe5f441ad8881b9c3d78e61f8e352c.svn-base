@@ -1,0 +1,1534 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+               <div
+			data-panel="{&quot;bFocusRingRoot&quot;:true,&quot;onMoveDown&quot;:&quot;BlockMovement&quot;,&quot;flow-children&quot;:&quot;column&quot;}"
+			class="rightcol small responsive_local_menu autocollapse_enabled"
+			id="additional_search_options" data-gpnav="rows">
+
+
+
+			<div class="block search_collapse_block" data-collapse-name="price"
+				data-gpnav="rows" data-gpfocus="group">
+				<div
+					data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+					class="block_header labs_block_header">
+					<div>가격으로 검색하기</div>
+				</div>
+				<div class="block_content block_content_inner">
+					<div class="range_container" style="margin-top: 8px;">
+						<div class="range_container_inner">
+							<input
+								data-panel="{&quot;autoFocus&quot;:true,&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="range_input" type="range" id="price_range" min="0"
+								max="13" step="1" value="13">
+							<div></div>
+						</div>
+						<div class="range_display" id="price_range_display">₩ 40,000
+							미만</div>
+
+					</div>
+
+					<div class="block_rule"></div>
+
+
+					<div class="tab_filter_control_row " data-param="specials"
+						data-value="__toggle" data-loc="특별 할인" data-clientside="0">
+						<span
+							data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+							class="tab_filter_control tab_filter_control_include "
+							data-param="specials" data-value="__toggle" data-loc="특별 할인"
+							data-clientside="0" data-gpfocus="item"> <span> <span
+								class="tab_filter_control_checkbox"></span> <span
+								class="tab_filter_control_label"> 특별 할인 </span> <span
+								class="tab_filter_control_count" style="display: none;"></span>
+						</span>
+						</span>
+					</div>
+
+					<div class="tab_filter_control_row" data-param="hidef2p"
+						data-value="__toggle" data-loc="무료 플레이 아이템 숨기기"
+						data-clientside="0">
+						<span
+							data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+							class="tab_filter_control tab_filter_control_include "
+							data-param="hidef2p" data-value="__toggle"
+							data-loc="무료 플레이 아이템 숨기기" data-clientside="0" data-gpfocus="item">
+							<span> <span class="tab_filter_control_checkbox"></span> <span
+								class="tab_filter_control_label"> 무료 플레이 아이템 숨기기 </span> <span
+								class="tab_filter_control_count" style="display: none;"></span>
+						</span>
+						</span>
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="block search_collapse_block"
+				data-collapse-name="language" data-collapse-default="true"
+				data-gpnav="rows" data-gpfocus="group">
+				<div
+					data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+					class="block_header">
+					<div>언어로 좁히기</div>
+				</div>
+				<div id="narrow_language" class="block_content block_content_inner">
+					<div id="LanguageFilter_Container" style="overflow: hidden;">
+
+
+
+
+						<div class="tab_filter_control_row checked"
+							data-param="supportedlang" data-value="koreana" data-loc="한국어"
+							data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include checked"
+								data-param="supportedlang" data-value="koreana" data-loc="한국어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 한국어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="english" data-loc="영어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="english" data-loc="영어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 영어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="schinese" data-loc="중국어 간체" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="schinese"
+								data-loc="중국어 간체" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 중국어 간체 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tchinese" data-loc="중국어 번체" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tchinese"
+								data-loc="중국어 번체" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 중국어 번체 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="japanese" data-loc="일본어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="japanese" data-loc="일본어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 일본어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="thai" data-loc="태국어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="thai" data-loc="태국어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 태국어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="bulgarian" data-loc="불가리아어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="bulgarian"
+								data-loc="불가리아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 불가리아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="czech" data-loc="체코어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="czech" data-loc="체코어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 체코어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="danish" data-loc="덴마크어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="danish" data-loc="덴마크어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 덴마크어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="german" data-loc="독일어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="german" data-loc="독일어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 독일어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="spanish" data-loc="스페인어 - 스페인" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="spanish"
+								data-loc="스페인어 - 스페인" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 스페인어 - 스페인 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="latam" data-loc="스페인어-중남미" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="latam"
+								data-loc="스페인어-중남미" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 스페인어-중남미 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="greek" data-loc="그리스어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="greek" data-loc="그리스어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 그리스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="french" data-loc="프랑스어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="french" data-loc="프랑스어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 프랑스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="italian" data-loc="이탈리아어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="italian" data-loc="이탈리아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 이탈리아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="indonesian" data-loc="인도네시아어" data-clientside="0">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="indonesian"
+								data-loc="인도네시아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 인도네시아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="hungarian" data-loc="헝가리어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="hungarian"
+								data-loc="헝가리어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 헝가리어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="dutch" data-loc="네덜란드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="dutch" data-loc="네덜란드어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 네덜란드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="norwegian" data-loc="노르웨이어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="norwegian"
+								data-loc="노르웨이어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 노르웨이어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="polish" data-loc="폴란드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="polish" data-loc="폴란드어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 폴란드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="portuguese" data-loc="포르투갈어 - 포르투갈"
+							data-clientside="0" style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="portuguese"
+								data-loc="포르투갈어 - 포르투갈" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 포르투갈어 - 포르투갈 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="brazilian" data-loc="포르투갈어 - 브라질" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="brazilian"
+								data-loc="포르투갈어 - 브라질" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 포르투갈어 - 브라질 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="romanian" data-loc="루마니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="romanian"
+								data-loc="루마니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 루마니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="russian" data-loc="러시아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="russian" data-loc="러시아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 러시아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="finnish" data-loc="핀란드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="finnish" data-loc="핀란드어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 핀란드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="swedish" data-loc="스웨덴어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="swedish" data-loc="스웨덴어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 스웨덴어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="turkish" data-loc="튀르키예어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="turkish" data-loc="튀르키예어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 튀르키예어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="vietnamese" data-loc="베트남어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="vietnamese"
+								data-loc="베트남어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 베트남어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="ukrainian" data-loc="우크라이나어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="ukrainian"
+								data-loc="우크라이나어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 우크라이나어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="arabic" data-loc="아랍어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="arabic" data-loc="아랍어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 아랍어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="afrikaans" data-loc="아프리칸스어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="afrikaans"
+								data-loc="아프리칸스어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 아프리칸스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="albanian" data-loc="알바니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="albanian"
+								data-loc="알바니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 알바니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="amharic" data-loc="암하라어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="amharic" data-loc="암하라어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 암하라어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="armenian" data-loc="아르메니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="armenian"
+								data-loc="아르메니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 아르메니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="assamese" data-loc="아삼어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="assamese" data-loc="아삼어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 아삼어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="azerbaijani" data-loc="아제르바이잔어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="azerbaijani"
+								data-loc="아제르바이잔어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 아제르바이잔어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="bangla" data-loc="뱅골어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="bangla" data-loc="뱅골어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 뱅골어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="basque" data-loc="바스크어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="basque" data-loc="바스크어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 바스크어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="belarusian" data-loc="벨라루스어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="belarusian"
+								data-loc="벨라루스어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 벨라루스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="bosnian" data-loc="보스니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="bosnian" data-loc="보스니아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 보스니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="catalan" data-loc="카탈로니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="catalan"
+								data-loc="카탈로니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 카탈로니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="cherokee" data-loc="체로키어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="cherokee" data-loc="체로키어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 체로키어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="croatian" data-loc="크로아티아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="croatian"
+								data-loc="크로아티아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 크로아티아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="dari" data-loc="다리어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="dari" data-loc="다리어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 다리어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="estonian" data-loc="에스토니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="estonian"
+								data-loc="에스토니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 에스토니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="filipino" data-loc="필리핀어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="filipino" data-loc="필리핀어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 필리핀어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="galician" data-loc="갈리시아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="galician"
+								data-loc="갈리시아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 갈리시아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="georgian" data-loc="조지아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="georgian" data-loc="조지아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 조지아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="gujarati" data-loc="구자라트어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="gujarati"
+								data-loc="구자라트어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 구자라트어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="gurmukhi" data-loc="펀자브어(구르무키 문자)"
+							data-clientside="0" style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="gurmukhi"
+								data-loc="펀자브어(구르무키 문자)" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 펀자브어(구르무키 문자) </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="hausa" data-loc="하우사어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="hausa" data-loc="하우사어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 하우사어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="hebrew" data-loc="히브리어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="hebrew" data-loc="히브리어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 히브리어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="hindi" data-loc="힌디어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="hindi" data-loc="힌디어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 힌디어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="icelandic" data-loc="아이슬란드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="icelandic"
+								data-loc="아이슬란드어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 아이슬란드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="igbo" data-loc="이보어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="igbo" data-loc="이보어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 이보어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="irish" data-loc="아일랜드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="irish" data-loc="아일랜드어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 아일랜드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="kannada" data-loc="칸나다어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="kannada" data-loc="칸나다어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 칸나다어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="kazakh" data-loc="카자흐어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="kazakh" data-loc="카자흐어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 카자흐어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="khmer" data-loc="크메르어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="khmer" data-loc="크메르어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 크메르어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="kiche" data-loc="끼체어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="kiche" data-loc="끼체어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 끼체어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="kinyarwanda" data-loc="키냐르완다어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="kinyarwanda"
+								data-loc="키냐르완다어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 키냐르완다어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="konkani" data-loc="콘칸어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="konkani" data-loc="콘칸어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 콘칸어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="kyrgyz" data-loc="키르기스어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="kyrgyz" data-loc="키르기스어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 키르기스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="latvian" data-loc="라트비아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="latvian" data-loc="라트비아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 라트비아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="lithuanian" data-loc="리투아니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="lithuanian"
+								data-loc="리투아니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 리투아니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="luxembourgish" data-loc="룩셈부르크어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="luxembourgish"
+								data-loc="룩셈부르크어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 룩셈부르크어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="macedonian" data-loc="마케도니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="macedonian"
+								data-loc="마케도니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 마케도니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="malay" data-loc="말레이어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="malay" data-loc="말레이어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 말레이어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="malayalam" data-loc="말라얄람어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="malayalam"
+								data-loc="말라얄람어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 말라얄람어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="maltese" data-loc="몰타어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="maltese" data-loc="몰타어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 몰타어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="maori" data-loc="마오리어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="maori" data-loc="마오리어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 마오리어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="marathi" data-loc="마라티어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="marathi" data-loc="마라티어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 마라티어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="mongolian" data-loc="몽골어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="mongolian" data-loc="몽골어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 몽골어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="nepali" data-loc="네팔어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="nepali" data-loc="네팔어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 네팔어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="odia" data-loc="오디아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="odia" data-loc="오디아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 오디아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="persian" data-loc="페르시아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="persian" data-loc="페르시아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 페르시아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="quechua" data-loc="케추아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="quechua" data-loc="케추아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 케추아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="scots" data-loc="스코트어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="scots" data-loc="스코트어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 스코트어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="serbian" data-loc="세르비아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="serbian" data-loc="세르비아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 세르비아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="shahmukhi" data-loc="펀자브어(샤흐무키 문자)"
+							data-clientside="0" style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="shahmukhi"
+								data-loc="펀자브어(샤흐무키 문자)" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 펀자브어(샤흐무키 문자) </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="sindhi" data-loc="신드어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="sindhi" data-loc="신드어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 신드어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="sinhala" data-loc="싱할라어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="sinhala" data-loc="싱할라어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 싱할라어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="slovak" data-loc="슬로바키아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="slovak" data-loc="슬로바키아어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 슬로바키아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="slovenian" data-loc="슬로베니아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="slovenian"
+								data-loc="슬로베니아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 슬로베니아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="sorani" data-loc="소라니어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="sorani" data-loc="소라니어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 소라니어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="sotho" data-loc="소토어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="sotho" data-loc="소토어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 소토어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="swahili" data-loc="스와힐리어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="swahili" data-loc="스와힐리어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 스와힐리어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tajik" data-loc="타지크어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tajik" data-loc="타지크어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 타지크어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tamil" data-loc="타밀어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tamil" data-loc="타밀어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 타밀어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tatar" data-loc="타타르어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tatar" data-loc="타타르어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 타타르어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="telugu" data-loc="텔루구어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="telugu" data-loc="텔루구어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 텔루구어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tigrinya" data-loc="티그리냐어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tigrinya"
+								data-loc="티그리냐어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 티그리냐어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="tswana" data-loc="츠와나어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="tswana" data-loc="츠와나어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 츠와나어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="turkmen" data-loc="투르크멘어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="turkmen" data-loc="투르크멘어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 투르크멘어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="urdu" data-loc="우르두어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="urdu" data-loc="우르두어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 우르두어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="uyghur" data-loc="위구르어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="uyghur" data-loc="위구르어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 위구르어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="uzbek" data-loc="우즈베크어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="uzbek" data-loc="우즈베크어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 우즈베크어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="valencian" data-loc="발렌시아어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="valencian"
+								data-loc="발렌시아어" data-clientside="0" data-gpfocus="item">
+								<span> <span class="tab_filter_control_checkbox"></span>
+									<span class="tab_filter_control_label"> 발렌시아어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="welsh" data-loc="웨일스어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="welsh" data-loc="웨일스어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 웨일스어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="wolof" data-loc="윌로프어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="wolof" data-loc="윌로프어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 윌로프어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="xhosa" data-loc="코사어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="xhosa" data-loc="코사어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 코사어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="yoruba" data-loc="요루바어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="yoruba" data-loc="요루바어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 요루바어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+						<div class="tab_filter_control_row " data-param="supportedlang"
+							data-value="zulu" data-loc="줄루어" data-clientside="0"
+							style="display: none;">
+							<span
+								data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+								class="tab_filter_control tab_filter_control_include "
+								data-param="supportedlang" data-value="zulu" data-loc="줄루어"
+								data-clientside="0" data-gpfocus="item"> <span> <span
+									class="tab_filter_control_checkbox"></span> <span
+									class="tab_filter_control_label"> 줄루어 </span> <span
+									class="tab_filter_control_count" style="display: none;"></span>
+							</span>
+							</span>
+						</div>
+					</div>
+					<input type="text" id="LanguageSuggest"
+						class="search_filter_suggest blur">
+
+					<div id="search_manage_lang_preferences_btn">
+						<a
+							href="https://store.steampowered.com/account/languagepreferences?snr=1_7_7_globaltopsellers">
+							언어 환경 설정 관리 </a>
+					</div>
+				</div>
+				<a class="see_all_expander nocollapse_only" href="#"
+					onclick="ExpandOptions(this, 'LanguageFilter_Container'); return false;">모두
+					보기</a>
+			</div>
+
+
+			<div class="block search_collapse_block" data-collapse-name="tags"
+				data-gpnav="rows" data-gpfocus="group">
+				<div
+					data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+					class="block_header labs_block_header">
+					<div>태그로 검색하기</div>
+				</div>
+				<div class="block_content block_content_inner">
+					<div id="TagFilter_Container"
+						style="max-height: 150px; overflow: hidden;">

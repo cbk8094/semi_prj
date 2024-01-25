@@ -1,0 +1,72 @@
+package kr.co.publicvoid.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 게임크리테리아 GameCriteria
+ * 
+ * 박주영
+ * 231018
+ * 관리자 페이지
+ *
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Criteria {
+    private int pageNum = 1;
+    private int amount = 10;
+    private String type = "";
+    private String keyword;
+
+ // 검색
+    public int getOffset() {
+        return (pageNum - 1) * amount;
+    }
+    
+    // 스프링엔 UriComponentsBuilder 빌더로 정리 
+    public String getLink() {
+        String link = "";
+        link += "admin?";
+        if (pageNum > 0) {
+            link += "pageNum=" + pageNum + "&";
+        }
+        if (amount > 0) {
+            link += "amount=" + amount + "&";
+        }
+        
+        if (!type.isEmpty()) {
+            link += "type=" + type + "&";
+        }
+        
+        if (keyword != null) {
+            link += "keyword=" + keyword;
+        }
+        return link;
+    }
+
+    public String getPageLink() {
+        String link = "";
+        link += "admin?";
+        if (amount > 0) {
+            link += "amount=" + amount + "&";
+        }
+        // 비어있지 않을경우 값추가
+        if (!type.isEmpty()) {
+            link += "type=" + type + "&";
+        }
+        if (keyword != null) {
+            link += "keyword=" + keyword;
+        }
+        return link;
+    }
+
+    public String[] getTypeArr() {
+        return type.split(",");
+    }
+}

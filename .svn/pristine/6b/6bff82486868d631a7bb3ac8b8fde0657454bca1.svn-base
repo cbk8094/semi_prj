@@ -1,0 +1,76 @@
+package kr.co.publicvoid.controller.cart;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.CartItemService;
+import kr.co.publicvoid.service.CartService;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.CartItemVO;
+import kr.co.publicvoid.vo.CartVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+@WebServlet("/cart")
+public class CartViewController extends HttpServlet{
+	private CartService cartService = CartService.getInstance();
+	private CartItemService cartItemService = CartItemService.getInstance();
+	private GameService gameService = GameService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	
+	// 가입 성공하면 기본적으로 Cart는 하나씩 주도록 하기
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = null;
+		
+//		if(req.getSession().getAttribute("member") != null) {
+//			memberVO = (MemberVO)req.getSession().getAttribute("member");
+//		}
+//		
+//		if(memberVO == null) {
+//			WebUtils.alertBack(resp, "잘못된 접근입니다");
+//		}
+
+		// 일단 테스트라 1번 회원으로 남기도록 하겠음
+		Long memberNo = 1L;
+		
+		memberVO = memberService.getOne(memberNo);
+		CartVO cartVO = cartService.getOneByMemberNo(memberNo);
+		cartVO.setMemberVO(memberVO);
+		
+		List<CartItemVO> cartItemList = cartItemService.getListByCartNo(cartVO.getCartNo());
+		
+		cartItemList.stream().map(cartItem -> {
+			cartItem.setGameVO(gameService.getOne(cartItem.getGameNo()));
+			
+			return cartItem;
+		}).collect(Collectors.toList());
+
+		req.setAttribute("cartItemList", cartItemList);
+		
+		req.getRequestDispatcher(WebUtils.VIEW_PATH + "/cart/view.jsp").forward(req, resp);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

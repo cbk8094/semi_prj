@@ -1,0 +1,82 @@
+package kr.co.publicvoid.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+public class UploadUtils {
+	
+	// 로컬 파일 저장 경로를 상수로 지정
+	public static final String LOCAL_REPOSITORY = "/WebContent/resources/upload";
+	
+	// 파일 업로드에 사용할 문자셋 지정
+	public static final String CHARSET = "utf-8";
+	
+	// 파일 업로드 시 초기 사이즈 임계값 설정
+	public static final int INIT_SIZE_THRESHOLD = 1024 * 1024;
+	
+	// 파일 아이템을 처리하는데 사용할 DiskFileItemFactory 초기화
+	private static DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+	static {
+		// 로컬 저장소 디렉토리 설정
+		File file = new File(LOCAL_REPOSITORY);
+		diskFileItemFactory.setRepository(file);
+		
+		// 문자셋 및 초기 사이즈 임계값 설정
+		diskFileItemFactory.setDefaultCharset(CHARSET);
+		diskFileItemFactory.setSizeThreshold(INIT_SIZE_THRESHOLD);
+	}
+
+	// 파일 업로드를 처리하는데 사용할 ServletFileUpload 초기화
+	public static ServletFileUpload init() {
+		return new ServletFileUpload(diskFileItemFactory);
+	}
+
+	// 로컬에 있는 파일을 업로드하는 메서드
+	public static void uploadLocalFile(String fileName, String localFilePath) throws IOException {
+		
+		// 원본 파일과 대상 파일 경로 생성
+        Path sourcePath = new File(localFilePath).toPath(); // 원본 파일 경로 생성
+        Path destinationPath = new File(LOCAL_REPOSITORY, fileName).toPath(); // 업로드 대상 파일 경로 생성
+
+        // 파일 복사 (로컬에서 서버로 파일 업로드), REPLACE_EXISTING은 기존 파일이 있으면 덮어쓰기
+        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+    }
+	
+	// 아래와 같은 파일 전송은 HTML <form> 태그에서 enctype="multipart/form-data"를 사용하거나
+	// Ajax에서 FormData 객체를 사용하여 파일을 서버로 전송할 때 주로 발생함
+	// Part를 직접 처리하여 파일을 로컬에 업로드하는 메서드
+	public static String uploadFile(Part filePart, String fileName) throws IOException {
+	    // 로컬 저장소에 저장할 파일 경로 생성
+	    String filePath = LOCAL_REPOSITORY + File.separator + fileName;
+
+	    // Part에서 입력 스트림을 획득하여 파일을 로컬에 복사
+	    try (InputStream input = filePart.getInputStream()) {
+	        Files.copy(input, new File(filePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+	    }
+
+	    // 로컬에 저장된 파일의 경로 반환
+	    return filePath;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

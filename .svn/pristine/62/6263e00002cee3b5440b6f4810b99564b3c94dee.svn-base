@@ -1,0 +1,35 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.vo.FriendshipVO;
+import kr.co.publicvoid.vo.MemberVO;
+/**
+ * BoardMapper
+ * 
+ * @author 최보규
+ * 231018
+ *
+ */
+public interface FriendshipMapper {
+	List<FriendshipVO> getListFriendShip(Criteria criteria);
+	
+	//친구목록 CRUD
+	
+	//파라메터에 Member의 아이디값을 통해 리스트 출력
+	List<FriendshipVO> read(MemberVO memberId);
+	
+	void insert(FriendshipVO vo);
+	
+	//응답받았던(친구 추가된 사람의 번호로 삭제)
+	int delete(Long receiverNo);
+	
+	int update(FriendshipVO vo);
+	
+	//해당 조건에 맞는 친구 목록을 반환
+	List<FriendshipVO> testSearchFriendShip(@Param("map") Map<String, String> map);
+}

@@ -1,0 +1,35 @@
+package kr.co.publicvoid.controller.board;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.BoardService;
+import kr.co.publicvoid.vo.BoardVO;
+
+@WebServlet("/board/qna")
+public class BoardQnaController extends HttpServlet{
+	private BoardService boardService = BoardService.getInstance();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(boardService);
+		
+		 BoardVO board = BoardVO.builder()
+		    		.boardCategory("qna")
+		    		.build();
+			
+	    List<BoardVO> boardList = boardService.getList(board);
+		System.out.println(boardService);
+
+		
+		req.setAttribute("boardList", boardList);
+
+		req.getRequestDispatcher("/WEB-INF/views/board/qna.jsp").forward(req, resp);
+	}
+}

@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.LibraryMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class LibraryService {
+	private LibraryMapper libraryMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(LibraryMapper.class);
+}

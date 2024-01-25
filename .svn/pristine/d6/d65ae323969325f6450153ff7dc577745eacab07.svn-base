@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.MemberMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into member(member_code, member_id, member_pw, member_nickname, member_introduce) 
+		values (#{memberCode}, #{memberId}, #{memberPw}, #{memberNickname}, #{memberIntroduce})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update member set 
+		member_code = #{memberCode}, member_id = #{memberId}, member_pw = #{memberPw}, member_nickname = #{memberNickname}, member_introduce = #{memberIntroduce}, member_point = #{memberPoint}, member_purchase = #{memberPurchase}, is_admin = #{isAdmin}
+		where member_no = #{memberNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from member where member_no = #{memberNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="MemberVO">
+		select * from member order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="MemberVO">
+		select * from member where member_no = #{memberNo}
+	</select>
+	
+</mapper>

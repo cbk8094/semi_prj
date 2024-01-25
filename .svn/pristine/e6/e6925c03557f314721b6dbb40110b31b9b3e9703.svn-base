@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.SaleMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class SaleService {
+	private SaleMapper saleMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(SaleMapper.class);
+}

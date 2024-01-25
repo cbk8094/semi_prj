@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.ItemImageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class ItemImageService {
+	private ItemImageMapper itemImageMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(ItemImageMapper.class);
+}

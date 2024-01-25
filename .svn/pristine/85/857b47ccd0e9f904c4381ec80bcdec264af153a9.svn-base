@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+	
+	<div class="game_list_wrap my-5 col-12 mx-auto">
+		<div class="row search_wrap col-12 col-lg-10 col-xl-8">
+							<h3 class="mb-4 text-light font-weight-bold">검색 옵션</h3>
+							<form class="search_form mb-5">
+								<!-- 이 값들은 뒤로가기해도 값이 남아있음 -->
+								<input type="hidden" id="nowPageInput" value="1">
+								<input type="hidden" id="genreInput">
+								<input type="hidden" id="priceInput">
+								<input type="hidden" id="languageInput">
+								<input type="hidden" id="saleInput">
+								<div class="form-group row mb-2">
+									<label for="genreSelect"
+										class="text-light col-sm-4 col-lg-3 col-form-label">장르선택</label>
+									<select class="game_search_input form-control col-sm-8 col-lg-9" id="genreSelect"
+										role="button">
+										<option value="0">전체</option>
+										<c:forEach items="${genreList}" var="genre">
+											<option value="${genre.genreNo}">${genre.genreName }</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="form-group row mb-2">
+									<label for="priceSelect"
+										class="text-light col-sm-4 col-lg-3 col-form-label">가격범위</label>
+										
+									<div class="range_wrap row no-gutters col-sm-8 col-lg-9 p-0">
+										<input type="range" class="game_search_input form-range w-100 h-custom-40"
+										id="priceSelect" min="0" max="21" value="21" role="button">
+										<div class="range_text text-light w-100 text-center h-custom-30">모든 가격</div>
+									</div>
+								</div>
+								<div class="form-group row mb-2">
+									<label class="text-light col-sm-4 col-lg-3 col-form-label">지원언어</label>
+
+									<div class="checkbox-wrap-custom col-sm-8 col-lg-9 px-1 py-0 pb-1">
+										<div class="language_wrap row no-gutters">
+											<c:forEach items="${languageList}" var="language">
+												<div class="form-check form-check-inline col-6 col-md-4 col-lg-3 m-0 py-1">
+													<input class="game_search_input form-check-input languageCheckbox" type="checkbox" id="language${language.languageNo }" data-language="${language.languageNo }" role="button"> 
+													<label class="form-check-label text-light" for="language${language.languageNo }" role="button">${language.languageName }</label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="text-light col-sm-4 col-lg-3 col-form-label">기타옵션</div>
+									<div class="col-sm-8 col-lg-9 px-1 py-2">
+										<div class="form-check form-check-inline m-0 p-0 mb-2">
+											<input class="game_search_input form-check-input saleCheckbox" type="checkbox" id="saleCheckbox" role="button"> 
+											<label class="form-check-label text-light" for="saleCheckbox" role="button">할인상품만 보기</label>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+		
+	</div>
+    

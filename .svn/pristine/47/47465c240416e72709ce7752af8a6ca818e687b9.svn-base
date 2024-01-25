@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.ChatParticipantMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class ChatParticipantService {
+	private ChatParticipantMapper chatParticipantMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(ChatParticipantMapper.class);
+}

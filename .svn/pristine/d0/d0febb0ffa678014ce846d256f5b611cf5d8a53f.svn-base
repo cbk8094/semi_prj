@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.BoardMapper">
+	<!-- 해당 카테고리 게시판 게시글 조회 -->
+	<select id="getList" resultType="BoardVO">
+		select * from board
+	</select>
+	
+	<!-- 카테고리 목록 조회 -->
+	<select id="getListByCategory" resultType="BoardVO">
+		select * from board where board_category = #{category}
+	</select>
+	
+	<!-- 제목으로 조회 -->
+	<select id="getListByTitle" resultType="BoardVO">
+		select * from board where board_title like concat('%', #{title}, '%');
+	</select>
+	
+	<!-- 게시글번호로 단일조회 -->
+	<select id="selectOne" resultType="BoardVO">
+		select * from board where board_no = #{bno}
+	</select>
+	
+	<!-- 아이디로 단일조회 -->
+	<select id="selectOneById" resultType="BoardVO">
+		select * from board where member_no = #{memberNo}
+	</select>
+	
+	<select id="isAnswer" resultType="BoardVO">
+		select * from board where is_answer = #{isAnswer}
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete * from board where board_no = #{bno}
+	</delete>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insert">
+		insert into board(
+		 member_no, board_no, board_sub_category, board_category, board_title, board_content,is_answer, answer_content, reg_date
+		) 
+		values (
+		#{memberNo}, #{boardNo}, #{boardSubCategory}, #{boardCategory}, #{boardTitle}, #{boardContent}, #{isAnswer}, #{answerContent}, #{regDate})
+	</insert>
+	
+</mapper>

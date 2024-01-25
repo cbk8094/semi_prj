@@ -1,0 +1,44 @@
+package kr.co.publicvoid.controller.board;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.dto.BoardCriteria2;
+import kr.co.publicvoid.service.BoardService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.vo.BoardVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+@WebServlet("/board/qna")
+public class BoardQnaController extends HttpServlet{
+	private BoardService boardService = BoardService.getInstance();
+	private MemberService memberService = MemberService.getInstance(); 
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		MemberVO member = WebUtils.getMember(req);
+//		if(member == null) {
+//			WebUtils.alert(resp, "로그린후 사용할 수 있습니다.",req.getContextPath()+"/member/login");
+//			return;
+//		} 
+		MemberVO  member = memberService.findByMember("jungmin@test.com");
+		req.getSession().setAttribute("member", member);
+//		 BoardVO board = BoardVO.builder()
+//		    		.memberNo(member.getMemberNo())
+//				 	.boardCategory("qna")
+//		    		.build();
+		
+		BoardCriteria2 boardCriteria2 = BoardCriteria2.builder().category("qna").build();	
+	    List<BoardVO> boardList = boardService.getListByMemberno(member.getMemberNo(), boardCriteria2);
+	    
+		req.setAttribute("boardList", boardList);
+
+		req.getRequestDispatcher("/WEB-INF/views/board/qna.jsp").forward(req, resp);
+	}
+}

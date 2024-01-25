@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.WishlistMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class WishlistService {
+	private WishlistMapper wishlistMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(WishlistMapper.class);
+}

@@ -1,0 +1,54 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.mapper.ReviewMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.ReviewVO;
+
+public class ReviewService {
+	public static final ReviewService INSTANCE = new ReviewService();
+
+	private ReviewService() {}
+	
+	public static ReviewService getInstance() {
+		return INSTANCE;
+	}
+	
+	 // 특정 게임의 리뷰 목록
+    public List<ReviewVO> getListByGameNo(Long gameNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            ReviewMapper reviewMapper = sqlSession.getMapper(ReviewMapper.class);
+            return reviewMapper.selectListByGameNo(gameNo);
+        }
+    }
+
+    // 특정 게임의 평균 평점 구하기
+    public double getAverageScore(Long gameNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            ReviewMapper reviewMapper = sqlSession.getMapper(ReviewMapper.class);
+            List<ReviewVO> reviewList = reviewMapper.selectListByGameNo(gameNo);
+            
+            // 람다식으로 해결함
+            return reviewList.stream().mapToInt(ReviewVO::getReviewScore).average().orElse(0.0);
+        }
+    }
+
+    // 특정 회원의 리뷰 목록
+    public List<ReviewVO> getListByMemberNo(Long memberNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            ReviewMapper reviewMapper = sqlSession.getMapper(ReviewMapper.class);
+            return reviewMapper.selectListByMemberNo(memberNo);
+        }
+    }
+
+    // 특정 회원의 리뷰 개수
+    public int getCountByMemberNo(Long memberNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            ReviewMapper reviewMapper = sqlSession.getMapper(ReviewMapper.class);
+            return reviewMapper.selectCountByMemberNo(memberNo);
+        }
+    }
+}

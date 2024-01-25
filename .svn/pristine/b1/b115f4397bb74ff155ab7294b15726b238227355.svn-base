@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.MemberImageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class MemberImageService {
+	private MemberImageMapper memberImageMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(MemberImageMapper.class);
+}

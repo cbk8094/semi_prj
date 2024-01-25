@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.publicvoid.mapper.GameMapper">
+<!-- 삽입 : insert 수정 : update 삭제 : delete 단일조회 : selectOne 전체조회 : selectList 
+	매퍼는 이름 모두 통일하기 -->
+	<select id="getList" resultType="kr.co.publicvoid.vo.GameVO">
+		select * from game
+	</select>
+
+	<insert id="insert">
+		insert into game(genre_no, publisher_no, game_name,
+		game_desc,game_video_url,game_price,
+		game_developer,game_release_date,game_age_limit,
+		game_spec)
+		values (#{genreNo}, #{publisherNo}, #{gameName}
+		,#{gameDesc},#{gameVideoUrl},#{gamePrice},#{gameDeveloper}
+		,#{gameReleaseDate},#{gameAgeLimit},#{gameSpec}
+		)
+	</insert>
+	<!-- 사용 안하는중 -->
+	<insert id="insertSelectKey">
+		insert into game(genre_no, publisher_no, game_name,
+		game_desc,game_video_url,game_price,
+		game_developer,game_release_date,game_age_limit,
+		game_spec)
+		values (#{genreNo}, #{publisherNo}, #{gameName}
+		,#{gameDesc},#{gameVideoUrl},#{gamePrice},#{gameDeveloper}
+		,#{gameReleaseDate},#{gameAgeLimit},#{gameSpec}
+		)
+		<selectKey keyProperty="gameno" order="AFTER" resultType="long">
+		select max(gameNo) from game
+		</selectKey>
+	
+	</insert>
+	<select id="read" resultType="game">
+	select * from game where gameNo = #{gameNo}
+	</select>
+	
+	
+</mapper>

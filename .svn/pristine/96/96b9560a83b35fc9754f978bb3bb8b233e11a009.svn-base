@@ -1,0 +1,85 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
+
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class BoardMapperTests {
+	private BoardMapper boardMapper = 
+			MybatisUtils.sqlSessionFactory().openSession(true).getMapper(BoardMapper.class);
+
+	@Test
+	public void testInsert() {
+		BoardVO vo = BoardVO
+		.builder()
+		.boardNo(1L)
+		.memberNo(1L)
+		.boardSubCategory("서브카테고리 테스트")
+		.boardCategory("카테고리 테스트")
+		.boardTitle("제목 테스트")
+		.boardContent("내용 테스트")
+		.regDate(new Date())
+		.build();
+		
+		log.info(vo); // title, content, writer, bno = null
+		
+		boardMapper.insert(vo);
+		log.info(vo);  // title, content, writer, bno = null
+	}
+	@Test
+	public void testGetList() {
+		boardMapper.getList().forEach(log::info);
+	}
+
+	@Test
+	public void testGetListByCategory() {
+		boardMapper.getListByCategory("카테2고리 테스트").forEach(log::info);
+	}
+
+	@Test
+	public void testGetListByTitle() {
+		boardMapper.getListByTitle("제").forEach(log::info);
+	}
+	
+	@Test
+	//게시글 1번 불러오기 테스트
+	public void testRead() {
+		BoardVO vo = boardMapper.selectOne(1L);
+		log.info(vo);
+	}
+	@Test
+	//게시글 2번 삭제 테스트
+	public void testDelete() {
+		int cnt = boardMapper.delete(1L);
+		log.info(cnt);
+	}
+	//게시글 3번 수정 테스트
+	@Test
+	public void testUpdate() {
+		BoardVO vo = boardMapper.selectOne(1L);
+		vo.setBoardCategory("카테고리 수정");
+		vo.setBoardSubCategory("서브카테고리 수정");
+		vo.setBoardTitle("제목 수정");
+		vo.setBoardContent("내용 수정");
+
+		boardMapper.update(vo);
+		
+		vo = boardMapper.selectOne(3L);
+		log.info(vo);
+	}
+	@Test
+	public void testIsAnswer() {
+//		List<BoardVO> boList = boardMapper.isAnswer();
+		boolean isAnswer = false;
+		log.info("isAnswer value" + isAnswer);
+		
+		boardMapper.getListIsAnswer(isAnswer).forEach(log::info);
+		
+	}
+}

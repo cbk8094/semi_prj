@@ -1,0 +1,62 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
+
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import kr.co.publicvoid.vo.FriendshipVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class FriendshipMapperTests {
+	private FriendshipMapper friendshipMapper = 
+			MybatisUtils.sqlSessionFactory().openSession(true).getMapper(FriendshipMapper.class);
+
+	@Test
+	public void testInsert() {
+		FriendshipVO vo = FriendshipVO
+		.builder()
+		.friendshipNo(1L)
+		.requesterNo(12345L)
+		.receiverNo(1234567L)
+		.regDate(new Date())
+		.build();
+		
+		log.info(vo); // title, content, writer, bno = null
+		
+		friendshipMapper.insert(vo);
+		log.info(vo);  // title, content, writer, bno = null
+	}
+	@Test
+	public void testGetList() {
+		friendshipMapper.getList().forEach(log::info);
+	}
+	
+	@Test
+	//게시글 1번 불러오기 테스트
+	public void testRead() {
+		FriendshipVO vo = friendshipMapper.selectOne(1L);
+		log.info(vo);
+	}
+	@Test
+	//게시글 2번 삭제 테스트
+	public void testDelete() {
+		int cnt = friendshipMapper.delete(1L);
+		log.info(cnt);
+	}
+	//게시글 3번 수정 테스트
+	@Test
+	public void testUpdate() {
+		FriendshipVO vo = friendshipMapper.selectOne(12345L);
+		vo.setBlock(true);
+		vo.setRegDate(new Date());
+
+		friendshipMapper.update(vo);
+		
+		vo = friendshipMapper.selectOne(12345L);
+		log.info(vo);
+	}
+}

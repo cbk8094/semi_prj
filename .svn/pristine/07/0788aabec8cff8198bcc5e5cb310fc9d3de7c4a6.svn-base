@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.GameImageMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into game_image(game_no, origin_file_name, stored_file_name, is_thumbnail) 
+		values (#{gameNo}, #{originFileName}, #{storedFileName}, #{isThumbnail})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update game_image set 
+		game_no = #{gameNo}, origin_file_name = #{originFileName}, stored_file_name = #{storedFileName}, is_thumbnail = #{isThumbnail}
+		where file_no = #{fileNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from game_image where file_no = #{fileNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="GameImageVO">
+		select * from game_image order by 1 asc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="GameImageVO">
+		select * from game_image where file_no = #{fileNo}
+	</select>
+	
+	<!-- 게임 번호로 목록 조회 -->
+	<select id="selectListByGameNo" resultType="GameImageVO">
+		select * from game_image where game_no = ${gameNo} order by 1 asc
+	</select>
+	
+</mapper>

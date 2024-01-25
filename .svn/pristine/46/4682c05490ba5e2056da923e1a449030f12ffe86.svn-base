@@ -1,0 +1,59 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.dto.Criteria;
+
+import kr.co.publicvoid.vo.BoardVO;
+/**
+ * BoardMapper
+ * 
+ * @author 최보규
+ * 231018
+ *
+ */
+public interface BoardMapper {
+	//게시판 전체글
+	List<BoardVO> getList(BoardVO vo);
+	
+	//게시판 리스트 카테고리로 검색
+	List<BoardVO> getListByCategory(String category);
+	
+	//게시판 리스트 검색어로 검색
+	List<BoardVO> getListByTitle(String title);
+	
+	//게시판 리스트 아이디로 검색
+	List<BoardVO> getListByTitle(Long memberNo);
+	
+	//게시판 리스트 아이디로 검색
+	List<BoardVO> getListIsAnswer(boolean isAnswer);
+	
+	//게시판 리스트페이징
+	List<BoardVO> getListWithPaging(Criteria criteria);
+	
+	
+	
+	int getTotal(Criteria criteria);
+	void insertSelectKey(BoardVO boardVO);	
+	
+	//게시판 CRUD
+	
+	//추가
+	void insert(BoardVO vo);
+	//단일조회
+	BoardVO selectOne(Long boardNo);
+	//삭제
+	int delete(Long boardNo);
+	//수정
+	int update(BoardVO vo);
+	
+	
+	List<BoardVO> testSearchBoard(@Param("map") Map<String, String> map);
+
+	List<BoardVO> selectList(String boardCategory);
+
+}

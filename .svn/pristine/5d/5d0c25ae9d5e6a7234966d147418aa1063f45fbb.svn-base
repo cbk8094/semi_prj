@@ -1,0 +1,127 @@
+package kr.co.publicvoid.controller.admin.game;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.dto.AdminSearchDTO;
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.GenreService;
+import kr.co.publicvoid.service.LanguageService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.MemberVO;
+import lombok.extern.log4j.Log4j;
+//import util.WebUtils;
+
+@WebServlet("/admin/modify")
+@Log4j
+public class AdminGameModifyController extends HttpServlet {
+
+	private GameService gameService = GameService.getInstance();
+	private GenreService genreService = GenreService.getInstance();
+	private LanguageService languageService = LanguageService.getInstance();
+
+	// 전체 목록 조회
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		Criteria criteria = new Criteria();
+		String pn = req.getParameter("pageNum");
+		String amount = req.getParameter("amount");
+		String type = req.getParameter("type");
+		String keyword = req.getParameter("keyword");
+		if (pn != null) {
+			criteria.setPageNum(Integer.parseInt(pn));
+		}
+		if (amount != null) {
+			criteria.setAmount(Integer.parseInt(amount));
+		}
+		
+		if (type != null) {
+			criteria.setKeyword(keyword);
+		}
+		if (keyword != null) {
+			criteria.setType(type);
+		}
+		// 유효성 검사 
+		if (memberVO == null) {
+			WebUtils.alert(resp, "로그인해주세요", "/member/login");
+			return;
+		}
+
+		if (memberVO.isAdmin() == false) {
+			WebUtils.alert(resp, "잘못된 접근입니다", "/");
+			return;
+		}
+
+		Long gameNo = Long.parseLong(req.getParameter("gameNo"));
+		
+		
+		
+//		String gameNostr = req.getParameter("gameNo");
+
+
+		req.setAttribute("gameList", gameService.getOne(gameNo));
+		req.setAttribute("genreList", genreService.getList());
+		req.setAttribute("languageList", languageService.getList());
+		req.getRequestDispatcher("/WEB-INF/views/admin/modify.jsp").forward(req, resp);
+
+	}
+
+	// 페이징 및 필터링 된 목록 조회
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+
+		if (memberVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+
+		if (memberVO.isAdmin() == false) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		// 날짜 타입은 제외 
+		String gameNo =req.getParameter("gameNo"); //int 게임 번호
+		String genreNo =req.getParameter("genreNo"); //int 장르 번호
+		String publisherNo =req.getParameter("publisherNo"); //int 퍼블리셔번호
+		String gameName =req.getParameter("gameName"); 
+		String gameDesc =req.getParameter("gameDesc"); // 게임 내용
+		String gameVideoUrl =req.getParameter("gameVideoUrl"); // 게영영상주소
+		String gamePrice =req.getParameter("gamePrice"); // int 게임가격
+		String gameDeveloper =req.getParameter("gameDeveloper"); //개발사
+		String gameAgeLimit =req.getParameter("gameAgeLimit"); //int 연령제한
+		String isDeletedParam =req.getParameter("isDeleted"); //boolean 삭제여부 0 배포 1 서비스 종료
+		// 불린값 정리
+		Boolean isDeleted = isDeletedParam != null ? Boolean.parseBoolean(isDeletedParam) : false;
+		//세일 정보수정
+		String saleStartDate =req.getParameter("saleStartDate"); //boolean 삭제여부 0 배포 1 서비스 종료
+		String saleEndDate =req.getParameter("saleEndDate"); //boolean 삭제여부 0 배포 1 서비스 종료
+
+		GameVO game = GameVO.builder()
+				.gameNo(Long.valueOf(gameNo))
+				.genreNo(Long.valueOf(genreNo))
+				.publisherNo(Long.valueOf(publisherNo))
+				.gameName(gameName)
+				.gameDesc(gameDesc)
+				.gameVideoUrl(gameVideoUrl)
+				.gamePrice(Integer.valueOf(gamePrice))
+				.gameDeveloper(gameDeveloper)
+				.gameAgeLimit(Integer.valueOf(gameAgeLimit))
+				.isDeleted(isDeleted)
+				.build();
+//		gameService.updateSaleCount(gameNo, saleCount)
+		
+		
+		
+		super.doPost(req, resp);
+	}
+
+}

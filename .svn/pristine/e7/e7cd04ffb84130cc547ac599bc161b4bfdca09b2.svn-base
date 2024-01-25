@@ -1,0 +1,24 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+
+import lombok.Builder;
+import lombok.Data;
+
+/**
+ * 게임 이미지 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+public class GameImageVO { // 게임 이미지
+	private Long fileNo; // 파일번호
+	private Long gameNo; // 게임번호
+	private String originFileName; // 원본파일명
+	private String storedFileName; // 저장파일명
+	private boolean isThumbnail; // 대표이미지여부
+	private Date regDate; // 등록일자
+}

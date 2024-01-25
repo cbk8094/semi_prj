@@ -1,0 +1,23 @@
+package kr.co.publicvoid.util;
+
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+
+public class MyAwsCredentialsProvider implements AwsCredentialsProvider{
+	
+	private final String accessKeyId;
+	private final String secretAccessKey;
+	
+	public MyAwsCredentialsProvider(String accessKeyId, String secretAccessKey) {
+		// 아이디와 키는 properties 파일에서 가져오도록 하겠다.
+		this.accessKeyId = accessKeyId;
+		this.secretAccessKey = secretAccessKey;
+	}
+	
+	@Override
+	public AwsCredentials resolveCredentials() {
+		return AwsBasicCredentials.create(accessKeyId, secretAccessKey);
+	}
+
+}

@@ -1,0 +1,33 @@
+package kr.co.publicvoid.controller.game;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.dto.GameSearchDTO;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.vo.GameVO;
+
+// locallhost/store
+@WebServlet("/store")
+public class GameListController extends HttpServlet{
+	private GameService gameService = new GameService();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		List<BoardVO> boardList = boardService.getList();
+		System.out.println(gameService);
+		List<GameVO> gamelist = gameService.getFilteredAndPagingList(new GameSearchDTO());
+//		List<GameVO> gamelist = null;
+		
+		req.setAttribute("gamelist", gamelist); // jsp 에서 이름 선언 
+
+		req.getRequestDispatcher("/WEB-INF/views/game/list.jsp").forward(req, resp);
+	}
+}
+

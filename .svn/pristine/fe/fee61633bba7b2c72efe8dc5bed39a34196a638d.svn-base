@@ -1,0 +1,56 @@
+package kr.co.publicvoid.mapper;
+
+import org.junit.Test;
+
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class BoardMapperTests {
+	private BoardMapper boardMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(BoardMapper.class);
+	public void testInsert() {
+		BoardVO vo = new BoardVO();
+		vo.setBoardNo((long) 1);
+		vo.setMemberNo((long)1);
+		vo.setBoardCategory("카테고리 테스트");
+		vo.setBoardSubCategory("서브카테고리 테스트");
+		vo.setBoardTitle("제목 테스트");
+		vo.setBoardContent("내용 테스트");
+		
+		log.info(vo); // title, content, writer, bno = null
+		
+		boardMapper.insert(vo);
+		log.info(vo);  // title, content, writer, bno = null
+	}
+	@Test
+	public void testGetList() {
+		boardMapper.getList().forEach(log::info);
+	}
+	@Test
+	//게시글 1번 불러오기 테스트
+	public void testRead() {
+		BoardVO vo = boardMapper.selectOne(1L);
+		log.info(vo);
+	}
+	@Test
+	//게시글 2번 삭제 테스트
+	public void testDelete() {
+		int cnt = boardMapper.delete(2L);
+		log.info(cnt);
+	}
+	//게시글 3번 수정 테스트
+	@Test
+	public void testUpdate() {
+		BoardVO vo = boardMapper.selectOne(3L);
+		vo.setBoardCategory("카테고리 수정");
+		vo.setBoardSubCategory("서브카테고리 수정");
+		vo.setBoardTitle("제목 수정");
+		vo.setBoardContent("내용 수정");
+
+		boardMapper.update(vo);
+		
+		vo = boardMapper.selectOne(3L);
+		log.info(vo);
+	}
+}

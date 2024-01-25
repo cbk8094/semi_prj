@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.LibraryMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into library(member_no, game_no) 
+		values (#{memberNo}, #{gameNo})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update library set 
+		member_no = #{memberNo}, game_no = #{gameNo}, is_hidden = #{isHidden}, is_favorite = #{isFavorite}
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from library where library_no = #{libraryNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="LibraryVO">
+		select * from library order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="LibraryVO">
+		select * from library where library_no = #{libraryNo}
+	</select>
+	
+	<!-- 회원 번호로 목록 조회 -->
+	<select id="selectListByMemberNo" resultType="LibraryVO">
+		select * from library
+		where member_no = #{memberNo}
+		and is_hidden = 0
+		order by 1 desc
+	</select>
+	
+	<!-- 회원 번호로 목록 조회 (3개만) -->
+	<select id="selectListByMemberNoLimit3" resultType="LibraryVO">
+		select * from library
+		where member_no = #{memberNo}
+		and is_hidden = 0
+		order by 1 desc
+		limit 3
+	</select>
+	
+	<!-- 회원 번호로 개수 조회 -->
+	<select id="selectCountByMemberNo" resultType="int">
+		select count(*) from library
+		where member_no = #{memberNo}
+		and is_hidden = 0
+	</select>
+	
+	<!-- 회원 번호와 게임 번호로 단일 조회 -->
+	<select id="selectOneByMemberNoAndGameNo" resultType="LibraryVO">
+		select * from library
+		where member_no = #{memberNo} and game_no = #{gameNo}
+	</select>
+	
+	<!-- LibraryFilterDTO로 목록 조회 -->
+	<!-- 기본적으로 즐겨찾기를 위에, 숨김을 아래에 놓는다 -->
+	<select id="selectListByLibraryFilterDTO" resultType="LibraryVO">
+		select * from library
+		where member_no = #{memberNo}
+		<if test="filterType == 'hidden'">
+			and is_hidden = 1
+		</if>
+		<if test="filterType == 'favorite'">
+			and is_favorite = 1
+		</if>
+		order by is_favorite desc, is_hidden asc, library_no desc
+	</select>
+	
+	<!-- 라이브러리 업데이트 (숨김 처리) -->
+	<!-- 숨기면 자동으로 즐겨찾기 해제됨 -->
+	<update id="updateSetHidden">
+		update library set 
+		is_hidden = 1, is_favorite = 0
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+	<!-- 라이브러리 업데이트 (숨김 해제 처리) -->
+	<update id="updateUnsetHidden">
+		update library set 
+		is_hidden = 0
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+	<!-- 라이브러리 업데이트 (즐겨찾기 처리) -->
+	<!-- 즐겨찾기하면 자동으로 숨김 해제됨 -->
+	<update id="updateSetFavorite">
+		update library set 
+		is_favorite = 1, is_hidden = 0
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+	<!-- 라이브러리 업데이트 (즐겨찾기 해제 처리) -->
+	<update id="updateUnsetFavorite">
+		update library set 
+		is_favorite = 0
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+</mapper>
+
+
+
+
+

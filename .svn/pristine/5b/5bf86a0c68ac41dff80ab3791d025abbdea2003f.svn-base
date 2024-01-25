@@ -1,0 +1,82 @@
+package kr.co.publicvoid.controller.game;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.CartItemService;
+import kr.co.publicvoid.service.CartService;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.LibraryService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.service.ReviewService;
+import kr.co.publicvoid.service.WishService;
+import kr.co.publicvoid.vo.CartItemVO;
+import kr.co.publicvoid.vo.CartVO;
+import kr.co.publicvoid.vo.LibraryVO;
+import kr.co.publicvoid.vo.MemberVO;
+import kr.co.publicvoid.vo.WishVO;
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("/game/view")
+@Log4j
+public class GameViewController extends HttpServlet {
+	private GameService gameService = GameService.getInstance();
+	private ReviewService reviewService = ReviewService.getInstance();
+	private WishService wishService = WishService.getInstance();
+	private LibraryService libraryService = LibraryService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	private CartService cartService = CartService.getInstance();
+	private CartItemService cartItemService = CartItemService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		Long gameNo = Long.parseLong(req.getParameter("gameNo"));
+		
+		req.setAttribute("game", gameService.getOne(gameNo));
+		req.setAttribute("reviewScoreAvg", reviewService.getAverageScore(gameNo));
+
+//		MemberVO memberVO = WebUtils.getLoginMember(req);
+		
+		// 일단 테스트라 1번 회원으로 남기도록 하겠음
+		MemberVO memberVO = null;
+		
+		Long memberNo = 1L;
+		memberVO = memberService.getOne(memberNo);
+		
+		if(memberVO != null) {
+			LibraryVO libraryVO = libraryService.getOneByMemberNoAndGameNo(memberVO.getMemberNo(), gameNo);
+			
+			// 이미 라이브러리에 보관 중이면
+			if(libraryVO != null) {
+				req.setAttribute("isBought", true);
+			}
+			
+			CartVO cartVO = cartService.getOneByMemberNo(memberVO.getMemberNo());
+			CartItemVO cartItemVO = cartItemService.getOneByCartNoAndGameNo(cartVO.getCartNo(), gameNo);
+			
+			// 이미 장바구니에 보관 중이면
+			if(cartItemVO != null) {
+				req.setAttribute("isCarted", true);
+			}
+			
+			WishVO wishVO = wishService.getOneByMemberNoAndGameNo(memberVO.getMemberNo(), gameNo);
+			
+			// 위시리스트에 추가한 상태라면
+			if(wishVO != null) {
+				req.setAttribute("isWished", true);
+			}
+		}
+		
+		req.getRequestDispatcher("/WEB-INF/views/game/view.jsp").forward(req, resp);
+	}
+}
+
+
+
+

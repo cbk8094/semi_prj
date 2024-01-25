@@ -1,0 +1,109 @@
+package kr.co.publicvoid.controller.member;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.MemberVO;
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("/member/profile")
+@Log4j
+public class MemberProfileController extends HttpServlet {
+	private MemberService memberService = MemberService.getInstance();
+	private Gson gson = new Gson();
+
+	// 프로필 페이지
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if(req.getParameter("memberNo") == null) {
+			WebUtils.alertBack(resp, "잘못된 접근입니다");
+			return;
+		}
+		
+		Long memberNo = Long.parseLong(req.getParameter("memberNo"));
+		
+		MemberVO memberVO = memberService.getOne(memberNo);
+		
+		MemberVO loginMember = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.alertBack(resp, "존재하지 않는 회원입니다");
+			return;
+		}else { // 있는 회원이면
+			
+			if(loginMember != null) {
+				if(WebUtils.isSameMember(memberVO, loginMember)) {
+					req.setAttribute("mine", true);
+				}
+			}
+			
+			MemberVO member = memberService.findByMember(memberVO.getMemberId());
+			req.setAttribute("member", member);
+			req.getRequestDispatcher(WebUtils.VIEW_PATH + "/member/profile.jsp").forward(req, resp);
+		}
+		
+	}
+	
+	// 프로필 수정(닉네임, 자기소개)
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if(req.getParameter("memberNo") == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		
+		Long memberNo = Long.parseLong(req.getParameter("memberNo"));
+		
+		MemberVO memberVO = memberService.getOne(memberNo);
+
+		if(memberVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "존재하지 않는 회원입니다", null);
+			return;
+		}
+		
+		MemberVO loginMember = WebUtils.getLoginMember(req);
+		
+		if(loginMember == null) {
+			WebUtils.jsonPrintREST(resp, false, 1, "로그인해주세요", null);
+			return;
+		}
+		
+		if(!WebUtils.isSameMember(memberVO, loginMember)) {
+			WebUtils.jsonPrintREST(resp, false, 2, "잘못된 접근입니다", null);
+			return;
+		}
+		
+		int result = 0;
+		
+		log.info(req.getParameter("memberNickname"));
+		log.info(req.getParameter("memberIntroduce"));
+		
+		if(req.getParameter("memberNickname") != null) {
+			loginMember.setMemberNickname((String)req.getParameter("memberNickname"));
+			result = memberService.modify(loginMember);
+		}
+		
+		if(req.getParameter("memberIntroduce") != null) {
+			loginMember.setMemberIntroduce((String)req.getParameter("memberIntroduce"));
+			result = memberService.modify(loginMember);
+		}
+		
+		if(result > 0) {
+			WebUtils.jsonPrintREST(resp, true, 0, "성공", loginMember);
+		}else {
+			WebUtils.jsonPrintREST(resp, false, 3, "회원정보 수정에 실패했습니다", null);
+		}
+	}
+}

@@ -1,0 +1,57 @@
+package kr.co.publicvoid.vo;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 게임 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+// 아래 NoArgsConstructor와 AllArgsConstructor를 해야 IndexOutOfBoundException이 발생하지 않는다.
+@NoArgsConstructor
+@AllArgsConstructor
+public class GameVO { // 게임
+	private Long gameNo; // 게임번호
+	private Long genreNo; // 장르번호
+	private Long publisherNo; // 퍼블리셔번호
+	private String gameName; // 게임명
+	private String gameDesc; // 게임설명
+	private String gameVideoUrl; // 게임영상주소
+	private int gamePrice; // 게임가격
+	private String gameDeveloper; // 개발사
+	private Date gameReleaseDate; // 출시일
+	private int gameAgeLimit; // 연령제한 (0: 전체, 1: 12세, 2: 15세, 3: 18세, 4: 분류거부)
+	private String gameSpec; // 권장사양
+	private int gameSaleCount; // 판매량
+	private boolean isDeleted; // 삭제여부
+	private Date regDate; // 등록일자
+	
+	@Builder.Default
+    private List<GameImageVO> gameImageList = new ArrayList<>(); // 게임 이미지 리스트
+    @Builder.Default
+    private List<GameLanguageVO> gameLanguageList = new ArrayList<>(); // 게임 언어 리스트
+    @Builder.Default
+    private List<ReviewVO> reviewList = new ArrayList<>(); // 리뷰 리스트
+	
+    // 원래는 DTO로 나눠서 해야 하지만 지금은 일단 이렇게 처리하도록 한다.
+    private SaleVO saleVO; // 게임 할인 정보 (null이냐 아니냐에 따라 처리)
+    private GenreVO genreVO; // 게임 장르 정보
+    private PublisherVO publisherVO; // 게임 퍼블리셔 정보
+    private int discountedPrice; // 할인된 가격
+    private Double reviewAvg; // 해당 게임의 평균 리뷰 점수
+}
+
+
+
+

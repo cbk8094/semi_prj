@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+        <!-- 사이드바 시작 -->
+        <ul class="navbar-nav bg-custom-black sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- 메인 로고 -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${cp }/">
+				<img alt="메인 로고" src="${cp }/resources/img/steam-logo.png" class="sidebar-brand-icon w-25 filter-invert">
+				<div class="sidebar-brand-text text-capitalize font-larger-custom">Stream</div>
+            </a>
+
+            <!-- 분리선 -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- 사이드바 내비게이션 -->
+            <li class="nav-item">
+                <a class="nav-link" href="${cp }/">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>홈</span>
+                </a>
+          	</li>
+            <li class="nav-item">
+                <a class="nav-link" href="${cp }/game/list">
+                    <i class="fas fa-fw fa-shopping-basket"></i>
+                    <span>상점</span>
+                </a>
+          	</li>
+            <li class="nav-item">
+                <a class="nav-link" href="${cp }/board/notice">
+                    <i class="fas fa-fw fa-bullhorn"></i>
+                    <span>공지사항</span>
+                </a>
+          	</li>
+            <li class="nav-item">
+                <a class="nav-link" href="${cp }/board/event">
+                    <i class="fas fa-fw fa-calendar-check"></i>
+                    <span>이벤트</span>
+                </a>
+          	</li>
+            <li class="nav-item dropright">
+			    <a class="nav-link" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        <i class="fas fa-fw fa-users"></i>
+			        <span>고객지원</span>
+			    </a>
+			    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			        <a class="dropdown-item font-small-custom" href="${cp }/board/qna">
+                   		<i class="fas fa-fw fa-tasks mr-1"></i>
+			        	문의하기
+			        </a>
+			        <a class="dropdown-item font-small-custom" href="${cp }/board/faq">
+                   		<i class="fas fa-fw fa-question-circle mr-1"></i>
+			        	자주묻는질문
+			        </a>
+			    </div>
+			</li>
+
+            <!-- 분리선 -->
+            <hr class="sidebar-divider my-0">
+            
+            <c:if test="${loginMember ne null }">
+	            <li class="nav-item dropright">
+				    <a class="nav-link" href="javascript:;" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				        <i class="fas fa-fw fa-cog"></i>
+				        <span>계정</span>
+				    </a>
+				    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+				        <a class="dropdown-item font-small-custom" href="${cp }/cart">
+                    		<i class="fas fa-fw fa-shopping-cart mr-1"></i>
+				        	장바구니
+				        </a>
+				        <a class="dropdown-item font-small-custom" href="${cp }/wish/list?memberNo=${loginMember.memberNo}">
+				        	<i class="fas fa-fw fa-heart mr-1"></i>
+				        	위시리스트
+				        </a>
+				        <a class="dropdown-item font-small-custom" href="${cp }/library/list?memberNo=${loginMember.memberNo}">
+                    		<i class="fas fa-fw fa-gamepad mr-1"></i>
+				        	라이브러리
+				        </a>
+				        <a class="dropdown-item font-small-custom" href="${cp }/purchase/list">
+				        	<i class="fas fa-fw fa-credit-card mr-1"></i>
+				       		구매내역
+				        </a>
+				    </div>
+				</li>
+	            <hr class="sidebar-divider my-0">
+	            
+	            <c:if test="${loginMember.isAdmin() == true}">
+		            <li class="nav-item">
+		                <a class="nav-link" href="${cp }/admin">
+				        	<i class="fas fa-fw fa-tools mr-1"></i>
+				        	관리자용
+		                </a>
+		          	</li>
+	           		<hr class="sidebar-divider my-0">
+	            </c:if>
+            </c:if>
+
+            <!-- 사이드바 토글 버튼 -->
+            <div class="text-center d-none d-md-inline mt-3">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+            
+            <!-- 푸터 분리 -->
+			<jsp:include page="./footer.jsp"></jsp:include>
+
+        </ul>
+        <!-- 사이드바 끝 -->
+        
+        
+        

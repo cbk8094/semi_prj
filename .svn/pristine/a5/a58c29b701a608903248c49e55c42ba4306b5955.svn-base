@@ -1,0 +1,21 @@
+package kr.co.publicvoid.mapper;
+
+import org.apache.ibatis.annotations.Delete;
+
+import kr.co.publicvoid.vo.GameReplyVO;
+
+public interface GameReplyMapper {
+	int insert(GameReplyVO vo);
+	GameReplyVO read(Long rno);
+	
+	int delete(Long rno);
+	@Delete("")
+	int deleteAll(Long gno);
+	int update(GameReplyVO vo);
+
+	
+	// 이건 나중에 써보자 
+	// @Param : list 파라미터가 2개 이상시 필수
+//		List<ReplyVO> getListWithPaging(@Param("cri") Criteria criteria,@Param("bno") Long bno);
+//		int getTotal(@Param("cri") Criteria criteria,@Param("bno") Long bno);
+}

@@ -1,0 +1,91 @@
+package kr.co.publicvoid.mapper;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.junit.Test;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.GameVO;
+import lombok.Data;
+import lombok.extern.log4j.Log4j;
+
+
+
+@Data
+@Log4j
+public class GameMapperTests {
+	
+//	@Setter(onMethod = @Autowired) 이클립스 하는방법이라고 해서 알
+//	private GameMapper gameMapper;
+	
+	private GameMapper gameMapper =
+			MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GameMapper.class);
+	
+	@Test
+	public void testMapper() {
+		log.info(gameMapper);
+		assert gameMapper != null : "gameMapper 변수는 null일 수 없습니다.";
+//		log.info(gameMapper);
+	}
+	
+	@Test
+	public void testGetList() {
+		log.info(gameMapper.getList(new Criteria()).size());
+		gameMapper.getList(new Criteria()).forEach(log::info);
+	}
+	// 생성 
+	@Test
+	public void testCreate() throws ParseException {
+			GameVO vo = new GameVO();
+			vo.setGenreNo(1L);
+			vo.setPublisherNo(2L);
+			vo.setGameName("테스트");
+			vo.setGameDesc("gameDesc");
+			vo.setGameVideoUrl("video");
+			vo.setGamePrice(12000);
+			vo.setGameDeveloper("asd");
+			
+			// Date 타입으로 저장 시 new Date(String) 형식의 메서드가 Deprecated되어 아래와 같이 할 수밖에 없는지?
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    Date releaseDate = dateFormat.parse("2023-10-11 12:12:12");
+		    vo.setGameReleaseDate(releaseDate);
+			
+			vo.setGameAgeLimit(0);
+			vo.setGameSpec("똥컴도가능");
+			
+			log.info(gameMapper.insert(vo));
+		}	
+	// 셀렉트 키 쓰는 이유 ?
+//	@Test
+//	public void testInsertSelectKey() throws ParseException {
+//		GameVO vo = new GameVO();
+//		vo.setGenreNo(1L);
+//		vo.setPublisherNo(2L);
+//		vo.setGameName("테스트");
+//		vo.setGameDesc("gameDesc");
+//		vo.setGameVideoUrl("video");
+//		vo.setGamePrice(12000);
+//		vo.setGameDeveloper("asd");
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	    Date releaseDate = dateFormat.parse("2023-10-11 12:12:12");
+//	    vo.setGameReleaseDate(releaseDate);
+//		
+//		vo.setGameAgeLimit(0);
+//		vo.setGameSpec("똥컴도가능");
+//		
+//		log.info(gameMapper.insertSelectKey(vo));
+//	}
+	
+	// 
+	@Test
+	public void testRead() {
+		GameVO vo = gameMapper.read(1L);
+		log.info(vo);
+		
+	}
+		
+	
+}

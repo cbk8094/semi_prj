@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.LanguageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class LanguageService {
+	private LanguageMapper languageMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(LanguageMapper.class);
+}

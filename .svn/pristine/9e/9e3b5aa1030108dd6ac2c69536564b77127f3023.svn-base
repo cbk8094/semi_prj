@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.PublisherMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class PublisherService {
+	private PublisherMapper publisherMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(PublisherMapper.class);
+}

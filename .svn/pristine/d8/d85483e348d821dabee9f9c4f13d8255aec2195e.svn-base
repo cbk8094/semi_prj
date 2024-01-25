@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.BoardMapper">
+	<!-- 해당 카테고리 게시판 게시글 조회 -->
+	<select id="getList" resultType="BoardVO">
+<!-- 		select * from board -->
+<!-- 		where board_category = #{boardCategory} -->
+		<!--서브 카테고리가 있을 경우 -->
+<!-- 		<if test="boardSubCategory != null and boardSubCategory != ''"> -->
+<!-- 		and board_sub_category = #{boardSubCategory} -->
+<!-- 		</if> -->
+<!-- 		order by 1 desc -->
+		SELECT
+			ROW_NUMBER() OVER(ORDER BY regDate) 		AS rowNum				/* 번호 정렬을 위한 row_number (기준:reg_date desc) */
+			,board_no									AS boardNo
+			,member_no 									AS memberNo
+			,board_category 							AS boardCategory
+			,board_sub_category 						AS boardSubCategory
+			,board_title 								AS boardTitle
+			,board_content 								AS boardContent
+			,answer_content								AS answerContent
+			,is_answer 									AS isAnswer
+			,reg_date 									AS regDate
+		FROM
+			board
+		WHERE 
+			1=1
+			<if test="searchTxt != null and searchTxt != ''">
+				AND board_content like concat('%',#{searchTxt},'%')
+				AND board_title like concat('%',#{searchTxt},'%')
+			</if>
+			<if test="boardNo != null and boardNo != '' and boardNo != '0'">
+				AND board_no = cast(#{boardNo} as integer)
+			</if>
+			<if test="boardCategory != null and boardCategory != ''">
+				AND board_category = #{boardCategory}
+			</if>
+			
+			<if test="boardSubCategory != null and boardSubCategory != '' and boardSubCategory != 'all'">
+				AND board_sub_category = #{boardSubCategory}
+			</if>
+		ORDER BY reg_date DESC
+	</select>
+	
+	<!-- 카테고리 목록 조회 -->
+	<select id="getListByCategory" resultType="BoardVO">
+		select * from board where board_category = #{category}
+	</select>
+	
+	<!-- 제목으로 조회 -->
+	<select id="getListByTitle" resultType="BoardVO">
+		select * from board where board_title like concat('%', #{title}, '%');
+	</select>
+	
+	<!-- 게시글번호로 단일조회 -->
+	<select id="selectOne" resultType="BoardVO">
+		select * from board where board_no = #{boardNo}
+	</select>
+	
+	<!-- 아이디로 단일조회 -->
+	<select id="selectOneById" resultType="BoardVO">
+		select * from board where member_no = #{memberNo}
+	</select>
+	
+	<!-- 답변여부로 조회 -->
+	<select id="getListIsAnswer" resultType="BoardVO">
+		select * from board where is_answer = #{isAnswer}
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete * from board where board_no = #{boardNo}
+	</delete>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insert">
+		<!-- select *
+		from contents
+		where 1=1
+			and (name list '%#{text}%'
+					or contents like '%#{text}%'
+			<if test="ctg != null">
+				and ctg = #{ctg}
+			</if> -->
+		insert into board(
+		 member_no, board_category, board_title, board_content
+		) 
+		values (
+		#{memberNo}, #{boardCategory}, #{boardTitle}, #{boardContent})
+	</insert>
+	<select id="getListByMemberno" resultType="kr.co.publicvoid.vo.BoardVO">
+	SELECT 
+		ROW_NUMBER() OVER(ORDER BY reg_date) AS rowNum, board.*
+	FROM 
+		board
+	WHERE 
+		member_no = #{memberno} AND board_category = 'qna'
+	ORDER BY
+		reg_date DESC
+	</select>
+	<update id="update">
+		update board
+		SET board_category= #{boardCategory}, board_title= #{boardTitle}, board_content= #{boardContent}
+		WHERE board_no= #{boardNo};
+	</update>
+</mapper>

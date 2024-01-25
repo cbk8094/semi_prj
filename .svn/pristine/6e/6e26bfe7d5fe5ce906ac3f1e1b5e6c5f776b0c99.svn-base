@@ -1,0 +1,24 @@
+package kr.co.publicvoid.service;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.mapper.MemberMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.MemberVO;
+
+public class MemberService {
+	public static final MemberService INSTANCE = new MemberService();
+
+	private MemberService() {}
+	
+	public static MemberService getInstance() {
+		return INSTANCE;
+	}
+	
+	public MemberVO getOne(Long memberNo) {
+        try (SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession(true)) {
+            MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+            return memberMapper.selectOne(memberNo);
+        }
+    }
+}

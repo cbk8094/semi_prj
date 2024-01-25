@@ -1,0 +1,106 @@
+package kr.co.publicvoid.controller.cart;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.CartItemService;
+import kr.co.publicvoid.service.CartService;
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.LibraryService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.CartItemVO;
+import kr.co.publicvoid.vo.CartVO;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.LibraryVO;
+import kr.co.publicvoid.vo.MemberVO;
+import lombok.extern.log4j.Log4j;
+
+// 장바구니에 새 장바구니 아이템 추가하는 컨트롤러
+
+@WebServlet("/cart/add")
+@Log4j
+public class CartRegisterController extends HttpServlet{
+	private CartService cartService = CartService.getInstance();
+	private CartItemService cartItemService = CartItemService.getInstance();
+	private GameService gameService = GameService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	private LibraryService libraryService = LibraryService.getInstance();
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		MemberVO memberVO = WebUtils.getLoginMember(req);
+		
+		if(memberVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 5, "로그인해주세요", null);
+			return;
+		}
+		
+		Long memberNo = memberVO.getMemberNo();
+
+		if(req.getParameter("gameNo") == null) {
+			WebUtils.jsonPrintREST(resp, false, 0, "잘못된 접근입니다", null);
+			return;
+		}
+		
+		Long gameNo = Long.parseLong(req.getParameter("gameNo"));
+		GameVO gameVO = gameService.getOne(gameNo);
+		
+		if(gameVO == null) {
+			WebUtils.jsonPrintREST(resp, false, 1, "존재하지 않는 게임입니다", null);
+			return;
+		}
+		
+		memberVO = memberService.getOne(memberNo);
+		CartVO cartVO = cartService.getOneByMemberNo(memberNo);
+		Long cartNo = cartVO.getCartNo();
+		
+		// 이미 해당 회원의 장바구니에 해당 게임이 있는지 확인
+		CartItemVO cartItemVO = cartItemService.getOneByCartNoAndGameNo(cartNo, gameNo);
+		
+		log.info(cartItemVO);
+		
+		if(cartItemVO != null) {
+			WebUtils.jsonPrintREST(resp, false, 2, "이미 장바구니에 등록된 상품입니다", null);
+			return;
+		}
+		
+		// 이미 라이브러리에 있는 상품은 담지 못하게 하기
+		LibraryVO libraryVO = libraryService.getOneByMemberNoAndGameNo(memberNo, gameNo);
+		if(libraryVO != null) { // 이미 있으면
+			WebUtils.jsonPrintREST(resp, false, 4, "이미 구매한 상품입니다", null);
+			return;
+		}
+		
+		// 여기까지 왔으면 본격 처리
+		cartItemVO = CartItemVO.builder().cartNo(cartNo).gameNo(gameNo).build();
+		int result = cartItemService.register(cartItemVO);
+		
+		if(result == 0) {
+			WebUtils.jsonPrintREST(resp, false, 3, "장바구니 담기에 실패했습니다", null);
+			return;
+		}
+		
+		WebUtils.jsonPrintREST(resp, true, 0, "장바구니에 추가되었습니다", null);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

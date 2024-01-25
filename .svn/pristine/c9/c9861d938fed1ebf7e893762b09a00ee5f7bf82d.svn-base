@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.GameImageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class GameImageService {
+	private GameImageMapper gameImageMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GameImageMapper.class);
+}

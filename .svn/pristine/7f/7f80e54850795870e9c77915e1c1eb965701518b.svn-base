@@ -1,0 +1,5 @@
+package kr.co.publicvoid.mapper;
+
+public interface GenreMapper {
+
+}

@@ -1,0 +1,8 @@
+package kr.co.publicvoid.mapper;
+
+import kr.co.publicvoid.vo.PublisherVO;
+
+public interface PublisherMapper {
+	void insert(PublisherVO publisherVO);
+	PublisherVO selectByPublisherName(String publisherName);
+}

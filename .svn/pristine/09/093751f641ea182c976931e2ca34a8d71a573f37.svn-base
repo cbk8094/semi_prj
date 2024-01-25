@@ -1,0 +1,13 @@
+package kr.co.publicvoid.service;
+
+public class MemberImageService {
+	public static final MemberImageService INSTANCE = new MemberImageService();
+
+	private MemberImageService() {}
+	
+	public static MemberImageService getInstance() {
+		return INSTANCE;
+	}
+	
+	
+}

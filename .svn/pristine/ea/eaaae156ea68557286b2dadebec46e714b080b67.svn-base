@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.GameMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into game(
+			genre_no, publisher_no, game_name, game_desc, game_video_url, game_price, game_developer, game_release_date, game_age_limit, game_spec
+		) values (#{genreNo}, #{publisherNo}, #{gameName}, #{gameDesc}, #{gameVideoUrl}, #{gamePrice}, #{gameDeveloper}, #{gameReleaseDate}, #{gameAgeLimit}, #{gameSpec})
+		
+		<selectKey keyProperty="gameNo" order="AFTER" resultType="long">
+			select max(game_no) from game
+		</selectKey>
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update game set 
+		genre_no = #{genreNo}, publisher_no = #{publisherNo}, game_name = #{gameName}, game_desc = #{gameDesc},
+		game_video_url = #{gameVideoUrl}, game_price = #{gamePrice}, game_developer = #{gameDeveloper}, 
+		game_release_date = #{gameReleaseDate}, game_age_limit = #{gameAgeLimit}, game_spec = #{gameSpec}, 
+		game_sale_count = #{gameSaleCount}
+		where game_no = #{gameNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteold">
+		delete from game where game_no = #{gameNo} limit 1
+	</delete>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterType="map">
+    UPDATE game
+    SET is_deleted = CASE is_deleted
+        WHEN 0 THEN 1
+        ELSE 0
+    END
+    WHERE game_no = #{gameNo}
+	</update>
+	
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="GameVO">
+		select * from game order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="GameVO">
+		select *
+		from (
+			select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.*
+			from game g
+			left join sale s ON g.game_no = s.game_no 
+			and s.sale_start_date <![CDATA[<=]]> now() and s.sale_end_date >= now()
+		) as t
+		where t.game_no = #{gameNo}
+	</select>
+	
+	<!-- 조건으로 목록 필터링하여 조회 -->
+	<!-- !!주의!! CDATA는 if문 등 조건문을 감싸거나 하면 안 된다!! -->
+	<!-- 또한 if문 내에서 <, > 기호 등을 사용할 때는 XML 엔티티를 활용한다 -->
+	<select id="selectListByFilterAndPaging" resultType="GameVO">
+		select *
+		from (
+			select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, s.sale_start_date, s.sale_end_date, g.*
+			from game g
+			left join sale s ON g.game_no = s.game_no
+		) as t
+		where 1=1
+		<if test="genreNo != null and genreNo != 0">
+			and t.genre_no = #{genreNo}
+		</if>
+		<if test="priceLimit != null and priceLimit &lt;= 100001">
+			and t.discounted_price <![CDATA[<=]]> #{priceLimit}
+		</if>
+		<if test="languageNoList != null and languageNoList.size() > 0">
+			and t.game_no in (select distinct game_no from game_language where language_no in 
+			<foreach collection="languageNoList" item="item" index="i" open="(" close=")" separator=", ">
+				#{item}
+			</foreach>
+			)
+		</if>
+		<if test="isSale == true">
+			and t.sale_start_date <![CDATA[<=]]> now() and t.sale_end_date >= now()
+		</if>
+		<if test="keyword != null and keyword != ''">
+			and t.game_name like concat('%', #{keyword}, '%')
+		</if>
+		order by t.game_no desc
+		limit 16 offset #{offset}
+	</select>
+	
+	<!-- 게임 판매량 수정 -->
+	<update id="updateSaleCount">
+		update game set 
+		game_sale_count = game_sale_count + #{saleCount} 
+		where game_no = #{gameNo} limit 1
+	</update>
+	
+	<!-- 할인 게임 할인율 높은 순으로 4개 -->
+	<select id="selectListOrderBySaleRate" resultType="GameVO">
+		select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.* 
+		from game g
+		left join sale s
+		on g.game_no = s.game_no
+		order by s.sale_rate desc
+		limit 4
+	</select>
+	
+	<!-- 최신 게임 (가장 최근에 나온 순) 4개 -->
+	<select id="selectListOrderByReleaseDate" resultType="GameVO">
+		select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.* 
+		from game g
+		left join sale s
+		on g.game_no = s.game_no
+		order by g.game_release_date desc
+		limit 4
+	</select>
+	
+	<!-- 무료 게임 4개 -->
+	<select id="selectListFree" resultType="GameVO">
+		select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.* 
+		from game g
+		left join sale s
+		on g.game_no = s.game_no
+		having g.game_price = 0 or discounted_price = 0
+		order by g.game_no desc
+		limit 4
+	</select>
+	
+	<!-- 판매량 높은 순으로 5개 -->
+	<select id="selectListOrderBySaleCount" resultType="GameVO">
+		select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.* 
+		from game g
+		left join sale s
+		on g.game_no = s.game_no
+		order by g.game_sale_count desc
+		limit 5
+	</select>
+	
+	<!-- 평균 리뷰 점수 높은 순으로 5개 -->
+	<select id="selectListOrderByReviewAvg" resultType="GameVO">
+		select ifnull(round(((g.game_price * (100 - s.sale_rate)) / 100), -1), g.game_price) as discounted_price, g.*, avg(r.review_score) as review_avg
+		from game g
+		left join review r
+		on g.game_no = r.game_no
+		left join sale s
+		on g.game_no = s.game_no
+		group by g.game_no
+		order by review_avg desc
+		limit 5
+	</select>
+	
+	<!-- 게임넘버를 통해서 장르이름을 뽑아먹는 쿼리이지만 jsp에서 해결 -->
+	<select id="selectGameGenre" parameterType="int" resultType="GameVO">
+        SELECT gn.genre_name
+		FROM game g
+		JOIN genre gn ON g.genre_no = gn.genre_no
+		WHERE g.game_no = #{gameNo}
+    </select>
+	
+	<!-- 게임관리자 페이지 정리 -->
+	<sql id="dynamicSearch">
+	<trim prefix="where (" suffix=")" prefixOverrides="or">
+		<foreach collection="typeArr" item="t">
+			<trim prefix="or">
+			<choose>
+				<when test="t == 'T'.toString()">
+				game_name like concat('%',#{keyword},'%')
+				</when>
+				<when test="t == 'C'.toString()">
+				game_desc like concat('%',#{keyword},'%')
+				</when>
+				<when test="t == 'W'.toString()">
+				game_developer like concat('%',#{keyword},'%')
+				</when>
+			</choose>
+			</trim>
+		</foreach>
+	</trim>
+	</sql>
+	
+	<select id="getListWithPaging" resultType="GameVO">
+	select * from game  
+	<include refid="dynamicSearch" />
+	order by game_no desc limit #{amount} offset #{offset}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from game
+		<include refid="dynamicSearch" />
+	</select>
+	
+</mapper>
+
+
+
+
+
+

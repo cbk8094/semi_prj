@@ -1,0 +1,14 @@
+package kr.co.publicvoid.service;
+
+public class PurchaseService {
+	public static final PurchaseService INSTANCE = new PurchaseService();
+
+	private PurchaseService() {}
+	
+	public static PurchaseService getInstance() {
+		return INSTANCE;
+	}
+	
+	
+	
+}

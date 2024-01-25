@@ -1,0 +1,12 @@
+package kr.co.publicvoid.controller;
+
+import javax.servlet.http.HttpServlet;
+
+import kr.co.publicvoid.service.GenreService;
+
+public class GenreControllerTest extends HttpServlet{
+	private GenreService = new GenreService();
+	
+	
+
+}

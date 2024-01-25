@@ -1,0 +1,45 @@
+package kr.co.publicvoid.service;
+
+import org.junit.Test;
+
+import kr.co.publicvoid.mapper.GameLanguageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.GameLanguageVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class GameLanguageServiceTests {
+	private GameLanguageService gameLanguageService = new GameLanguageService();
+	private GameLanguageMapper gm = MybatisUtils.sqlSessionFactory().openSession().getMapper(GameLanguageMapper.class);
+
+	// 목록 조회
+	@Test
+	public void getList() {
+		gameLanguageService.selectList();
+		gameLanguageService.selectList().forEach(log::info);
+		
+	}
+	// 단일조회
+	@Test
+	public void testRead() {
+		gameLanguageService.selectOne(16L);
+	}
+	// 생성
+	@Test
+	public void inser() {
+	   gameLanguageService.insert(GameLanguageVO.builder().gameNo(187L).languageNo(2L).build());
+	   gameLanguageService.selectList();
+	   
+	}
+	// 수정ok
+	@Test 
+	public void update() {
+		gameLanguageService.update(GameLanguageVO.builder().gameLanguageNo(22L).gameNo(188L).languageNo(8L).build());
+		gameLanguageService.selectList();
+	}
+	
+	
+	
+	
+	
+}

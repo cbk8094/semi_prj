@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.publicvoid.mapper.GameMapper">
+<!-- 삽입 : insert 수정 : update 삭제 : delete 단일조회 : selectOne 전체조회 : selectList 
+	매퍼는 이름 모두 통일하기 -->
+	<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> -->
+	<!--전체 조회  -->
+	<select id="getList" resultType="GameVO">
+		select * from game
+	</select>
+	<!--  단일 조회 -->
+	<select id="read" resultType="kr.co.publicvoid.vo.GameVO">
+	select game_no ,genre_no, publisher_no, game_name from game where game_no = #{gameNo}
+	</select>
+	
+	<!-- 게임 등록 (게임 no 는 제외 날짜 제외 자동으로 채워짐)  -->
+	<insert id="insert">
+		insert into game(genre_no, publisher_no, game_name,
+		game_desc,game_video_url,game_price,
+		game_developer,game_release_date,game_age_limit,
+		game_spec)
+		values (#{genreNo}, #{publisherNo}, #{gameName}
+		,#{gameDesc},#{gameVideoUrl},#{gamePrice},#{gameDeveloper}
+		,#{gameReleaseDate},#{gameAgeLimit},#{gameSpec}
+		)
+	</insert>
+	<!-- 수정 -->
+	<update id="update">
+		update game set 
+		genre_no = #{genreNo}, publisher_no = #{publisherNo}, game_name = #{gameName}, game_desc = #{gameDesc},
+		game_video_url = #{gameVideoUrl}, game_price = #{gamePrice}, game_developer = #{gameDeveloper}, 
+		game_release_date = #{gameReleaseDate}, game_age_limit = #{gameAgeLimit}, game_spec = #{gameSpec}, 
+		game_sale_count = #{gameSaleCount}
+		where game_no = #{gameNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from game where game_no = #{gameNo} limit 1
+	</delete>
+	
+	
+	
+	<!-- 사용 안하는중 -->
+	<insert id="insertSelectKey">
+		insert into game(genre_no, publisher_no, game_name,
+		game_desc,game_video_url,game_price,
+		game_developer,game_release_date,game_age_limit,
+		game_spec)
+		values (#{genreNo}, #{publisherNo}, #{gameName}
+		,#{gameDesc},#{gameVideoUrl},#{gamePrice},#{gameDeveloper}
+		,#{gameReleaseDate},#{gameAgeLimit},#{gameSpec}
+		)
+		<selectKey keyProperty="gameNo" order="AFTER" resultType="long">
+		select max(game_no) from game
+		</selectKey>
+	
+	</insert>
+	
+
+	<select id="insertSerch" resultType="kr.co.publicvoid.vo.GameVO">
+    select * from game
+    where 1=1
+    <trim prefix="and" >
+        <foreach collection="map" item="val" index="key">
+            <if test="key == 'N'.toString()">
+                 game_name like concat('%', #{val} , '%')
+            </if>
+            
+            
+            <!-- 언어 선택 -->
+      <!--   <if test="languages != null and languages.size() > 0">
+            AND game_no IN (SELECT game_no FROM game_language WHERE language_no IN
+            <foreach collection="languages" item="language" open="(" close=")" separator=",">
+                #{language}
+            </foreach>)
+        </if> -->
+        
+        </foreach>
+    </trim>
+</select>
+
+<!-- 게임 정보 변경 단일 값 변경 가능 -->
+<update id="update">
+		update game
+		<set>
+			<if test="gameName != null"> game_name = #{gameName}, </if>
+		</set>
+		where game_no = #{gameNo}
+	</update>
+	<!-- 게임 삭제 -->
+	<delete id="delete">
+		delete from game where game_no = #{gameNo}
+	</delete>
+	
+	
+	
+</mapper>

@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.GuestbookMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class GuestbookService {
+	private GuestbookMapper guestbookMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GuestbookMapper.class);
+}

@@ -1,0 +1,35 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.vo.GameVO;
+
+public interface GameMapper {
+	/**
+	 * 게임 VO > 게임 Mapper 
+	 * 
+	 * 황정민 > 박주영 
+	 * 231017 > 231018  
+	 *
+	 */
+	// 등록
+	int insert(GameVO vo);
+	int insertSelectKey(GameVO vo);
+	// 전체 조회
+	GameVO read(Long gameNo);
+	// 삭제
+	int delete(Long gameNo);
+	// 수정
+	int update(GameVO vo);
+	
+	
+	List<GameVO> getList(Criteria criteria);
+	List<GameVO> getListWithPaging(Criteria criteria);
+	
+	List<GameVO> insertSerch(@Param("map") Map<String, String> map);
+
+}

@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.FriendshipMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class FriendshipService {
+	private FriendshipMapper friendshipMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(FriendshipMapper.class);
+}

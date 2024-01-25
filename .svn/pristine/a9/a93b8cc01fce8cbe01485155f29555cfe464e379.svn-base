@@ -1,0 +1,26 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+
+import kr.co.publicvoid.dto.GameSearchDTO;
+import kr.co.publicvoid.vo.GameVO;
+
+public interface GameMapper {
+	// 등록
+	int insert(GameVO gameVO);
+	
+	// 수정
+	int update(GameVO gameVO);
+	
+	// 삭제
+	int delete(Long gameNo);
+	
+	// 목록 조회
+	List<GameVO> selectList();
+	
+	// 단일 조회
+	GameVO selectOne(Long gameNo);
+	
+	// 조건으로 목록 필터링하여 조회
+	List<GameVO> selectListByFilterAndPaging(GameSearchDTO gameSearchDTO);
+}

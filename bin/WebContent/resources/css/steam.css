@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+/* 커스텀 색상 관련 */
+/* 최대한 기존 부트스트랩 4 클래스 색상과 비슷하게 하겠음 */
+.bg-custom-black{
+    background-color: #18181b !important;
+}
+
+.bg-custom-blue{
+	background-color: #1f213b !important;
+}
+
+.border-custom-black{
+	border-color: #2d2f3e !important;
+}
+
+.border-top-custom-black{
+	border-color: #333 !important;
+}
+
+.filter-invert{
+	filter: invert(1);
+}

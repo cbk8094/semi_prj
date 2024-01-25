@@ -1,0 +1,28 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.vo.GameVO;
+
+public interface GameMapper {
+	/**
+	 * 게임 VO > 게임 Mapper 
+	 * 
+	 * 황정민 > 박주영 
+	 * 231017 > 231018  
+	 *
+	 */
+	
+	int insert(GameVO vo);
+	int insertSelectKey(GameVO vo);
+	
+	GameVO read(Long gameNo);
+	int delete(Long gameNo);
+	int update(GameVO vo);
+	List<GameVO> getList(Criteria criteria);
+	List<GameVO> getListWithPaging(Criteria criteria);
+
+}

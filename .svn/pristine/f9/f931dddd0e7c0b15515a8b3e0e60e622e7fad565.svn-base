@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.MemberItemMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class MemberItemService {
+	private MemberItemMapper memberItemMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(MemberItemMapper.class);
+}

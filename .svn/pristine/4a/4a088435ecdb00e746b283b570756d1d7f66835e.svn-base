@@ -1,0 +1,31 @@
+package kr.co.publicvoid.service;
+
+
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+
+import kr.co.publicvoid.mapper.GenreMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.GenreVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class GenreServiceTest {
+	private GenreService genreService = new GenreService();
+	private GenreMapper genreMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GenreMapper.class);
+	
+	// 테스트 완 
+	@Test
+	public void getList() {
+//		 log.info(genreService.selectList());
+		 genreService.selectList().forEach(log::info);
+//	   	genreService.selectList();
+	}
+	// 단일조회
+		@Test
+		public void testRead() {
+			log.info(genreService.selectOne(5L));
+		}
+	
+
+}

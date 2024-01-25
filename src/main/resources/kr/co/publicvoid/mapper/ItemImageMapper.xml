@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.ItemImageMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into item_image(item_no, origin_file_name, stored_file_name) 
+		values (#{itemNo}, #{originFileName}, #{storedFileName})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update item_image set 
+		item_no = #{itemNo}, origin_file_name = #{originFileName}, stored_file_name = #{storedFileName}
+		where file_no = #{fileNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from item_image where file_no = #{fileNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="ItemImageVO">
+		select * from item_image order by 1 asc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="ItemImageVO">
+		select * from item_image where file_no = #{fileNo}
+	</select>
+	
+</mapper>

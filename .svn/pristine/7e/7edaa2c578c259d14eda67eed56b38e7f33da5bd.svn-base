@@ -1,0 +1,472 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+	    $('.tr-clickable a').on('click', function (event) {
+	        event.preventDefault();
+	        var gameNo = $(this).data("no");
+	        
+	        console.log(gameNo);
+	        var modifyLink = `${cp}/admin/modify?gameNo=` + gameNo;
+	        $('#modifyCk').attr('href', modifyLink);
+
+	        $.getJSON("${pageContext.request.contextPath}/admin/api/getOne?gameNo=" + gameNo)
+	            .done(function(data) {
+	            	console.log(data.saleVO)
+	            	
+	            	
+	            	//세일 담긴값 확인하기
+	            	var formattedDate = "해당없음";
+	            	var formattedEndDate = "해당없음";
+	            	if(data.saleVO) {
+	            		formattedDate = moment(new Date(data.saleVO.saleStartDate)).format("YYYY-MM-DD HH:mm:ss");
+	            		formattedEndDate = moment(new Date(data.saleVO.saleEndDate)).format("YYYY-MM-DD HH:mm:ss");
+	            	} 
+	            	// 리스트 상단 판매 금액 
+	            	  var gamePrice = data.gamePrice; // 게임 가격
+	                  var gameSaleCount = data.gameSaleCount; // 판매량
+	                  
+	                  var formattedGamePrice = formatCurrency(gamePrice); // 함수 호출
+	                  var sale = data.saleVO ? data.saleVO.saleRate : "해당없음";
+	                  
+	                  // 게임 가격 * 판매량을 계산
+	                  var totalSales = gamePrice * gameSaleCount;
+	                  var formattedtotalSales = formatCurrency(totalSales); // 함수 호출
+	                  
+	                  // 세일 현황 확인하기
+	                  
+	                  // var sale = data.saleVO.saleRate
+	                  console.log(-sale)
+	                  
+	                   $('#combinedValues').val(formattedGamePrice + '원 '  + ' | ' + '세일(%) '+sale );
+	            	
+	            	
+	            	// 비동기로 출력 하기
+	                $("#gameNoDisplay").val(data.gameNo);
+	                $("#genreNameDisplay").val(data.genreVO.genreName);
+	                $('#gameNameDisplay').val(data.gameName);
+	                $('#gameDescDisplay').html(data.gameDesc);
+	                $('#gameDeveloperDisplay').val(data.publisherVO.publisherName);
+	                $('#gameDateDisplay').val(data.regDate);
+	                
+	                $('#saleStartDate').val(formattedDate);
+	                $('#saleEndDate').val(formattedEndDate);
+	                $('#gamePrice').val(gamePrice);
+	                $('#sale').val(sale);
+	                $('#totalSales').val(formattedtotalSales + '원');
+	    			console.log(saleStartDate);
+	    			
+	    			
+	    			function formatCurrency(value) {
+	    			    return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(value);
+	    			}
+	            });
+
+	        console.log("ㅇㅇ"+gameNo);
+	       
+	    });
+
+	    // Modify 클릭 이벤트 따로 처리
+	    $('#modifyCk').on('click', function (event) {
+	        // event.preventDefault(); // 이 줄을 제거해야 함
+	        // console.log(gameNo); // 이 줄은 gameNo에 접근할 수 없음
+
+	        //  href 속성에 할당된 주소로 이동
+	    });
+	});
+	
+	
+	
+</script>
+ <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+  <style>
+    /* 스타일 추가: 아이콘을 성공 상태로 나타내는 스타일 */
+    .icon-box-success {
+      border: 2px solid #5cb85c; /* 초록색 테두리 */
+      padding: 10px;
+      display: inline-block;
+      border-radius: 5px;
+    }
+  </style>
+
+<head>
+<!-- head 부분 분리 -->
+<jsp:include page="../common/head.jsp"></jsp:include>
+</head>
+<!-- 게임 리스트 게이지 바등등 만들기  -->
+<!-- <script>
+    
+</script> -->
+<body id="page-top">
+
+	<!-- 전체 Wrapper 시작 -->
+	<div id="wrapper">
+
+		<!-- 사이드바 분리 -->
+		<jsp:include page="../common/sidebar.jsp"></jsp:include>
+		
+
+						<!-- 컨텐츠 Wrapper 시작 -->
+						<div id="content-wrapper"
+							class="d-flex flex-column bg-custom-blue">
+
+							<!-- 메인 컨텐츠 시작 -->
+							<div id="content">
+
+								<!-- 탑바 분리 -->
+								<jsp:include page="../common/topbar.jsp"></jsp:include>
+
+								<!-- 페이지 컨텐츠 시작 -->
+								<div class="container">
+
+									<!-- 여기 내부 부분을 작업하면 됩니다 -->
+									  
+		     <div class="row">
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                      
+                       <div class="form-group">
+				  		  <input type="text"class="form-control" id="saleStartDate" name="saleStartDate" value="" readonly>
+						</div>
+      					 
+                      </div>
+                      
+                    </div>
+                    <h6 class="text-muted font-weight-normal">세일 시작 날짜</h6>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                       <div class="form-group">
+				  		  <input type="text"class="form-control" id="saleEndDate" name="saleEndDate" value="" readonly>
+						</div>
+                      </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">세일 종료 날짜</h6>
+                  </div>
+                </div>
+              </div>
+              
+               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                       <div class="form-group">
+				  		  <input type="text"class="form-control" id="totalSales" name="totalSales" value="" readonly>
+						</div>
+                      </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">매출 현황</h6>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                    
+                   <!-- 게임 가격 -->
+                       <div class="form-group">
+				  		  <input type="text"class="form-control" id="combinedValues" name="combinedValues" value="" readonly>
+						</div>
+
+			
+                      
+                    </div>
+                    <h6 class="text-muted font-weight-normal">세일 현황</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><div class="chartjs-size-monitor">
+                  <div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <div class="d-flex flex-row justify-content-between">
+                      <h4 class="card-title mb-1">   게임 이름</h4>               
+                       <a href="" class="btn btn-primary btn-sm float-right" id="modifyCk">수정하기</a>
+                    </div>
+                    
+                     <%--  <jsp:include page="../admin/NewFile.jsp"></jsp:include>  --%>
+                     
+                    	<div class="card-body">
+                    	
+              <div class="form-group">
+				    <label for="gameNoDisplay">게임 No</label>
+				    <input type="text"class="form-control" id="gameNoDisplay" name="gameNoDisplay" value="" readonly>
+				</div>
+				
+				<div class="form-group">
+				    <label for="genreNameDisplay">게임 장르</label>
+				    <input type="text"class="form-control" id="genreNameDisplay" name="genreNameDisplay" value="" readonly>
+				</div>
+				
+      			<div class="form-group">
+       				<label for="gameNameDisplay">게임 제목</label>
+       				<input type="text"class="form-control" id="gameNameDisplay" name="gameNameDisplay" value="" readonly>
+       			</div>
+       			
+       			
+			       		<!-- <div class="form-group">
+					    <label for="gameDescDisplay">게임 설명</label>
+					    <textarea class="form-control" id="gameDescDisplay" name="gameDescDisplay" style="overflow: scroll; height: 500px"></textarea>
+					</div> -->
+			       		 <div class="form-group">
+			       		 <h6>게임 설명</h6>
+        				 <div class="form-control" id="gameDescDisplay" name="gameDescDisplay" style="overflow: scroll; height: 500px">
+      					</div>
+      					 </div> 
+      			
+      				<div class="form-group">
+        			<label for="gameDeveloperDisplay">개발사</label>
+        			<input type="text" class="form-control" id="gameDeveloperDisplay" name="gameDeveloperDisplay" readonly >
+        		</div>
+        		
+        		<div class="form-group">
+        			<label for="gameDateDisplay">등록 날짜</label>
+        			<input type="text" class="form-control" id="gameDateDisplay" name="gameDateDisplay" value="" readonly>
+        		</div>
+        		
+        		
+        		
+        		
+      				</div>
+                 
+                  </div>
+                </div>
+              </div>
+             
+              
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row justify-content-between">
+                    
+                      <h4 class="card-title mb-1">게임 목록</h4>
+                       <a
+                  href="register${page.cri.link}"
+                  class="btn btn-primary btn-sm float-right"
+                  >게임 추가</a>
+                    </div>
+                    
+                    <div class="row">
+                    
+                     <div class="game">
+                     
+                    
+               
+              </div>
+					 <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr >
+			            <!-- 클릭 이벤트를 처리하기 위해 헤더에 클래스 추가 -->
+                       <th>번호</th>
+			            <th>장르</th>
+			            <th>제목</th>
+			            <th>판매량</th>
+			            <th>등록일</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+                     <c:forEach var="g" items="${gameList}" varStatus="loop">
+                     	<%-- ${g.genreVO.genreName} --%>
+					    <%-- <c:set var="genreName" value="" /> <!-- 각 게임의 장르명을 초기화 --> --%>
+					    <%-- <c:forEach var="c" items="${genreList}">
+					        <c:if test="${g.genreNo == c.genreNo}">
+					            <c:set var="genreName" value="${c.genreName}" /> <!--장르가 일치하지 않는 경우 장르 이름 설정 -->
+					        </c:if>
+					    </c:forEach> --%>
+					    
+					    <tr class="tr-clickable">
+					        <td>${g.gameNo}</td>
+					        <td>
+					        	${g.genreVO.genreName}
+					           <%--  <c:choose>
+					                <c:when test="${not empty genreName}">
+					                    ${genreName} <!--변수가 비어있지 않은지 검사하는 조건 -->
+					                </c:when>
+					                <c:otherwise>
+					                    찾을수 없습니다 <!-- 내부에 값이 없다면  -->
+					                </c:otherwise>
+					            </c:choose> --%>
+					        </td>
+					        <td>
+					        <%--  <a href="javascript:void(0);" class="gameLink" data-gameNo="${g.gameNo}">${g.gameName}</a> --%>
+					            <div><a href="" data-no='${g.gameNo}'>${g.gameName}</a></div>
+					        </td>
+					        <td>${g.gameSaleCount}</td>
+					        <td>
+					            <fmt:formatDate
+					                pattern="yyyy-MM-dd"
+					                value="${g.regDate}" />
+					        </td>
+					        
+					    </tr>
+					</c:forEach>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="">
+                  <form action=""  class="form-inline justify-content-end my-3"  id="searchForm">
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"
+                        name="type" value="T" ${fn:contains(page.cri.type, 'T')
+                        ? 'checked' : '' }>제목
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"
+                        name="type" value="C" ${fn:contains(page.cri.type, 'C')
+                        ? 'checked' : '' }>내용
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"
+                        name="type" value="W" ${fn:contains(page.cri.type, 'W')
+                        ? 'checked' : '' }>작성자
+                      </label>
+                    </div>
+
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search"
+                        name="keyword"
+                        value="${page.cri.keyword}"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">
+                          검색
+                        </button>
+                      </div>
+                    </div>
+                    <input
+                      type="hidden"
+                      name="amount"
+                      value="${page.cri.amount}"
+                    />
+                  
+                    <input
+                      type="hidden"
+                      name="pageNum"
+                      value="${page.cri.pageNum}"
+                    />
+                  </form>
+                </div>
+                <div class="">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item ${page.prevs ? '' : 'disabled'}">
+                      <a
+                        class="page-link"
+                        href="${page.cri.pageLink}&pageNum=${page.startPage-1}"
+                        ><i class="fas fa-angle-double-left"></i
+                      ></a>
+                    </li>
+                    <li class="page-item ${page.prev ? '' : 'disabled'}">
+                      <a
+                        class="page-link"
+                        href="${page.cri.pageLink}&pageNum=${page.cri.pageNum-1}"
+                        ><i class="fas fa-angle-left"></i
+                      ></a>
+                    </li>
+                    <c:forEach
+                      begin="${page.startPage}"
+                      end="${page.endPage}"
+                      var="i"
+                    >
+                      <li
+                        class="page-item ${page.cri.pageNum == i ? 'active' : ''}"
+                      >
+                        <a
+                          class="page-link"
+                          href="${page.cri.pageLink}&pageNum=${i}"
+                          >${i}</a
+                        >
+                      </li>
+                    </c:forEach>
+                    <li class="page-item ${page.next ? '' : 'disabled'}">
+                      <a
+                        class="page-link"
+                        href="${page.cri.pageLink}&pageNum=${page.cri.pageNum+1}"
+                        ><i class="fas fa-angle-right"></i
+                      ></a>
+                    </li>
+                    <li class="page-item ${page.nexts ? '' : 'disabled'}">
+                      <a
+                        class="page-link"
+                        href="${page.cri.pageLink}&pageNum=${page.endPage+1}"
+                        ><i class="fas fa-angle-double-right"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+                    
+                    
+                       
+                          <br>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <br>
+								
+								<!-- 페이지 컨텐츠 끝 -->
+
+							</div>
+							<!-- 메인 컨텐츠 끝 -->
+
+						</div>
+						<!-- 컨텐츠 Wrapper 끝 -->
+
+					</div>
+					<!-- 전체 Wrapper 끝 -->
+
+					<!-- 맨 위로 스크롤 버튼 -->
+					<a class="scroll-to-top rounded" href="#page-top"> <i
+						class="fas fa-angle-up"></i>
+					</a>
+
+					<!-- 모달 JSP 삽입 -->
+					<jsp:include page="../common/modal.jsp"></jsp:include>
+</body>
+
+</html>

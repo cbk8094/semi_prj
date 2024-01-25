@@ -1,0 +1,135 @@
+package kr.co.publicvoid.util;
+
+import java.io.IOException;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import kr.co.publicvoid.mapper.PublisherMapper;
+import kr.co.publicvoid.vo.PublisherVO;
+
+public class Crawling {
+	public static void main(String[] args) throws IOException {
+		
+		PublisherMapper publisherMapper = MybatisUtils.sqlSessionFactory().openSession().getMapper(PublisherMapper.class);
+
+		// filestream 형식으로 만들기
+		// 파일 형태로 만들기
+		// 공격으로 간주하니까 전체 페이지 먼저 저장하고 파일 형태로 저장해놓고 하기
+		// 가공할 때는 파일로 만들어놨던 거에서 데이터 수집할 것
+
+		// SqlSessionFactory 생성 및 openSession을 함
+		SqlSessionFactory sqlSessionFactory = MybatisUtils.sqlSessionFactory();
+		SqlSession session = sqlSessionFactory.openSession(true);
+		
+		// 여기서부터 퍼블리셔를 크롤링하여 등록한 부분
+//		PublisherMapper publisherMapper = session.getMapper(PublisherMapper.class);
+//		
+//		Document doc = Jsoup.connect(
+//				"https://directg.net/game/game_thumb.html?search_platform=1")
+//				.get();
+//
+//		Elements elements = doc.select("select#search_publisher option");
+//		
+//		System.out.println(elements);
+//		
+//		for(Element e : elements) {
+//			String publisherName = e.text().trim();
+//			
+//			PublisherVO publisherVO = PublisherVO.builder().publisherName(publisherName).build();
+//			publisherMapper.insert(publisherVO);
+//		}
+		
+		String url = "https://directg.net/game/game_thumb.html?searchValue=&search_keyword=&sort=&search_category=2&search_platform=1&search_publisher=&search_goods_kind=1";
+		
+		Document doc = Jsoup.connect(url).get();
+		
+		Elements elements = doc.select("div.product");
+		
+		int i = 0;
+		
+		// 여기서부터 게임 데이터 크롤링 및 정제하여 DB에 삽입
+		for (Element e : elements) {
+			
+			// 일단 세 개만 넣어보기
+			if(i >= 3) {
+				break;
+			}
+			
+			Element aElement = e.select("a").first();
+
+			String href = aElement.attr("href");
+
+			System.out.println("링크: " + href);
+			
+			// 필요한 것 정리
+			// 장르번호 (수동으로 작성) - 완료
+			// 퍼블리셔번호 (퍼블리셔 번호는 퍼블리셔명을 가져와서 DB에 있는 거랑 비교하여 가져옴. 없으면 기타에 넣을 것임) - 완료
+			// 게임명 - 
+			// 게임설명
+			// 게임영상주소
+			// 게임가격
+			// 개발사
+			// 출시일
+			// 연령제한
+			// 판매량은 필요 없음 (기본값 0)
+			// 최소사양
+			// 권장사양
+			
+			// 일단 액션 넣을거라 장르번호는 1
+			
+			String gameUrl = "https://directg.net/game" + href.substring(1);
+			
+			Document gameDoc = Jsoup.connect(gameUrl).get();
+
+			// Detail Element
+			Element detailElement = gameDoc.selectFirst(".vm-product-details-container");
+			
+			// 게임 정보 Element
+			Element infoElement = gameDoc.selectFirst(".product-info");
+			
+			// 퍼블리셔명
+			String publisherName = infoElement.selectFirst("a").text();
+			System.out.println("퍼블리셔명 : " + publisherName);
+			// 해당 퍼블리셔명을 내가 넣어놨던 퍼블리셔 DB에서 찾아서 번호를 찾아온다.
+			
+			PublisherVO publisherVO = publisherMapper.selectByPublisherName(publisherName);
+			Long publisherNo = publisherVO.getPublisherNo();
+			
+			// 동영상 URL 들어있는 Element
+			Element urlElement = gameDoc.selectFirst(".embed-responsive-item");
+
+			String urlSrc = urlElement.attr("src");
+			System.out.println("장르번호 : 1");
+			
+			
+			System.out.println("퍼블리셔 번호 : " + publisherNo);
+			System.out.println("게임영상주소 : " + urlSrc);
+			
+			
+			System.out.println("==========================");
+			
+			i++;
+			
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

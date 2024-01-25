@@ -1,0 +1,11 @@
+package kr.co.publicvoid.service;
+
+public class BoardService {
+	public static final BoardService INSTANCE = new BoardService();
+	
+	private BoardService() {}
+	
+	public static BoardService getInstance() {
+		return INSTANCE;
+	}
+}

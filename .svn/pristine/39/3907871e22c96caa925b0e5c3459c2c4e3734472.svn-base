@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.LibraryMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into library(member_no, game_no) 
+		values (#{memberNo}, #{gameNo})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update library set 
+		member_no = #{memberNo}, game_no = #{gameNo}, is_hidden = #{isHidden}, is_favorite = #{isFavorite}
+		where library_no = #{libraryNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from library where library_no = #{libraryNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="LibraryVO">
+		select * from library order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="LibraryVO">
+		select * from library where library_no = #{libraryNo}
+	</select>
+	
+</mapper>

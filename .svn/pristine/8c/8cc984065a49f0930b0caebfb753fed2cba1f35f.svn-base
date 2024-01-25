@@ -1,0 +1,26 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.mapper.BoardMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import lombok.AllArgsConstructor;
+
+public class BoardService {
+	private SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession();
+	private BoardMapper boardMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(BoardMapper.class);
+	
+	public List<BoardVO> getList(String boardCategory) {
+	    List<BoardVO> boardList = boardMapper.selectList(boardCategory);
+	    return boardList;
+	}
+		
+	
+	
+}

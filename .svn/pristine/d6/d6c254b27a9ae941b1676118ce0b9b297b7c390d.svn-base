@@ -1,0 +1,28 @@
+package kr.co.publicvoid.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.co.publicvoid.vo.BoardFileVO;
+
+public interface BoardFileMapper {
+	BoardFileVO vo = new BoardFileVO();
+	
+	//게시글 전체 첨부파일
+	List<BoardFileVO> selectList(Long boardNo);
+	
+	//첨부파일 CRUD
+	
+	//추가
+	void insert(BoardFileVO vo);
+	//단일조회
+	BoardFileVO selectOne(Long fileNo);
+	//삭제
+	int delete(Long fileNo);
+	//수정(이 필요한가?)
+	int update(BoardFileVO vo);
+	
+	List<BoardFileVO> testSearchBoardFile(@Param("map") Map<String, String> map);
+}

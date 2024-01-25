@@ -1,0 +1,12 @@
+package kr.co.publicvoid.service;
+
+public class SaleService {
+	public static final SaleService INSTANCE = new SaleService();
+
+	private SaleService() {}
+	
+	public static SaleService getInstance() {
+		return INSTANCE;
+	}
+	
+}

@@ -1,0 +1,86 @@
+package kr.co.publicvoid.controller.review;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.service.ReviewService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.ReviewVO;
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("/review/list")
+@Log4j
+public class ReviewListController extends HttpServlet{
+	
+	private ReviewService reviewService = ReviewService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// request의 gameNo랑 memberNo를 구분하여 처리
+		// 없으면 null이 맞음
+		
+		// 특정 게임의 리뷰 조회는 post로만 지원함
+		
+		if(req.getParameter("memberNo") != null) {
+			// 해당 회원의 리뷰 조회
+			
+			req.getRequestDispatcher("/WEB-INF/views/review/memberList.jsp").forward(req, resp);
+		}else {
+			WebUtils.alertBack(resp, "잘못된 접근입니다");
+		}
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		if(req.getParameter("gameNo") != null) {
+			// 해당 게임의 리뷰 조회
+			List<ReviewVO> reviewList = reviewService.getListByGameNo(Long.parseLong(req.getParameter("gameNo")));
+
+			// review를 순회하며 해당 회원의 리뷰 개수를 조회하여 set함
+			reviewList.stream().map(review -> {
+//				review.setReviewCount(reviewService.getCountByMemberNo(review.getMemberNo()));
+				review.setMemberVO(memberService.getOne(review.getMemberNo()));
+				
+				return review;
+			}).collect(Collectors.toList());
+			
+			WebUtils.jsonPrint(resp, reviewList);
+			
+		}else if(req.getParameter("memberNo") != null) {
+			// 해당 회원의 리뷰 조회
+			
+		}else {
+			WebUtils.alertBack(resp, "잘못된 접근입니다");
+		}
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

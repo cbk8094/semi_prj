@@ -1,0 +1,30 @@
+package kr.co.publicvoid.controller.game;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.GameService;
+import kr.co.publicvoid.service.ReviewService;
+import lombok.extern.log4j.Log4j;
+
+@WebServlet("/game/view")
+@Log4j
+public class GameViewController extends HttpServlet {
+	private GameService gameService = GameService.getInstance();
+	private ReviewService reviewService = ReviewService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Long gameNo = Long.parseLong(req.getParameter("gameNo"));
+		
+		req.setAttribute("game", gameService.getOne(gameNo));
+		req.setAttribute("reviewScoreAvg", reviewService.getAverageScore(gameNo));
+		
+		req.getRequestDispatcher("/WEB-INF/views/game/view.jsp").forward(req, resp);
+	}
+}

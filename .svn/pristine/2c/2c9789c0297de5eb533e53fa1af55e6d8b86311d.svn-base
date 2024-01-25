@@ -1,0 +1,23 @@
+package kr.co.publicvoid.vo;
+
+import java.util.Date;
+
+import lombok.Builder;
+import lombok.Data;
+
+/**
+ * 채팅내역 VO
+ * 
+ * @author 황정민
+ * 231017
+ *
+ */
+@Data
+@Builder
+public class ChatVO { // 채팅내역
+	private Long chatNo; // 채팅메시지번호
+	private Long chatRoomNo; // 채팅방번호
+	private Long memberNo; // 회원번호
+	private String chatContent; // 채팅내용
+	private Date regDate; // 등록일자
+}

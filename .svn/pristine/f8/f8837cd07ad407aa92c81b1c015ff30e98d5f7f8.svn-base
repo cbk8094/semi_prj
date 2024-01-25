@@ -1,0 +1,50 @@
+package kr.co.publicvoid.controller.board;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.BoardService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+@WebServlet("/board/qna")
+public class BoardQnaController extends HttpServlet{
+	private BoardService boardService = BoardService.getInstance();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(boardService);
+		MemberVO member = WebUtils.getMember(req);
+		if(member.getMemberNo() == null) {
+			WebUtils.alert(resp, "로그린후 사용할 수 있습니다.",req.getContextPath()+"/member/login");
+		}
+		 BoardVO board = BoardVO.builder()
+		    		.memberNo(member.getMemberNo())
+				 	.boardCategory("qna")
+		    		.build();
+			
+	    List<BoardVO> boardList = boardService.getList(board);
+	    
+	    if(member.getMemberNo() != board.getMemberNo()) {
+	    	for (int i = 0; i < boardList.size(); i++) {
+	    		 	boardList.set(i, null);
+			}
+	    	WebUtils.alert(resp, "작성하신 문의내역이 없습니다.",req.getContextPath()+"/board/boardwrite");
+	    }
+	    
+	   
+		System.out.println(boardService);
+
+		
+		req.setAttribute("boardList", boardList);
+
+		req.getRequestDispatcher("/WEB-INF/views/board/qna.jsp").forward(req, resp);
+	}
+}

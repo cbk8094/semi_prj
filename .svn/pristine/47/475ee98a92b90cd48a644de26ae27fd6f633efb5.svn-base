@@ -1,0 +1,58 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.dto.GameSearchDTO;
+import kr.co.publicvoid.mapper.GameImageMapper;
+import kr.co.publicvoid.mapper.GameLanguageMapper;
+import kr.co.publicvoid.mapper.GameMapper;
+import kr.co.publicvoid.mapper.SaleMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.GameImageVO;
+import kr.co.publicvoid.vo.GameLanguageVO;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.SaleVO;
+
+public class GameService {
+	private SqlSession sqlSession = MybatisUtils.sqlSessionFactory().openSession();
+	private GameMapper gameMapper = sqlSession.getMapper(GameMapper.class);
+	private GameImageMapper gameImageMapper = sqlSession.getMapper(GameImageMapper.class);
+	private GameLanguageMapper gameLanguageMapper = sqlSession.getMapper(GameLanguageMapper.class);
+	private SaleMapper saleMapper = sqlSession.getMapper(SaleMapper.class);
+	
+	public List<GameVO> getList(){
+		List<GameVO> gameList = gameMapper.selectList();
+
+		for(GameVO gameVO : gameList) { 
+			List<GameImageVO> gameImageList = gameImageMapper.selectListByGameNo(gameVO.getGameNo());
+			gameVO.setGameImageList(gameImageList);
+			
+//			List<GameLanguageVO> gameLanguageList = gameLanguageMapper.selectListByGameNo(gameVO.getGameNo());
+//			gameVO.setGameLanguageList(gameLanguageList);
+//			
+//			SaleVO saleVO = saleMapper.selectOneByGameNoNow(gameVO.getGameNo());
+//			gameVO.setSaleVO(saleVO);
+		}
+		
+		return gameList;
+	}
+	
+	public List<GameVO> getFilteredAndPagingList(GameSearchDTO gameSearchDTO){
+		List<GameVO> gameList = gameMapper.selectListByFilterAndPaging(gameSearchDTO);
+//
+//		for(GameVO gameVO : gameList) {
+//			List<GameImageVO> gameImageList = gameImageMapper.selectListByGameNo(gameVO.getGameNo());
+//			gameVO.setGameImageList(gameImageList);
+//			
+////			List<GameLanguageVO> gameLanguageList = gameLanguageMapper.selectListByGameNo(gameVO.getGameNo());
+////			gameVO.setGameLanguageList(gameLanguageList);
+////			
+////			세일
+//		}
+		
+		return gameList;
+	}
+
+}

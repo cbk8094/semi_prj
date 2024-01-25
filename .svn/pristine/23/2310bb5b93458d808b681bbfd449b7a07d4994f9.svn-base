@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+	<c:forEach items="${boardList}" var="boardData">
+        <div class="accordion mt-5 " id="accordionBoard">
+            <!-- 게시물 1 -->
+            <div class="card border-0">
+                <div class="card-header border-0 d-flex justify-content-between bg-color p-0" id="headingOne">
+                    <div class="d-flex align-center justify-start">
+	                    <button class="btn bg-dark text-light mr-3" disabled>${boardData.boardSubCategory}</button>
+	                    <h3 class="mb-0 text-light justify-content mt-1">
+	                    	${boardData.boardTitle}
+	                    </h3>
+                    </div>
+                        <button class="btn outline" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fas fa-chevron-down" style="color: #0275d8;"></i>
+                        </button>
+                </div>
+                <div id="collapseOne" class="p-0 collapse bg-color" aria-labelledby="headingTwo" data-parent="#accordionBoard">
+                    <div class="card-body">
+                      ${boardData.boardContent}
+                    </div>
+                </div>
+            </div>   
+		
+		<hr class="board-line mt-4 mb-4">
+		</div>
+	</c:forEach>

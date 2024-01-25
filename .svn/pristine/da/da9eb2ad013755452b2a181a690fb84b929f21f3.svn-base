@@ -1,0 +1,154 @@
+package kr.co.publicvoid.util;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import kr.co.publicvoid.vo.BoardFileVO;
+import kr.co.publicvoid.vo.BoardVO;
+import kr.co.publicvoid.vo.CartItemVO;
+import kr.co.publicvoid.vo.CartVO;
+import kr.co.publicvoid.vo.ChatParticipantVO;
+import kr.co.publicvoid.vo.ChatRoomVO;
+import kr.co.publicvoid.vo.ChatVO;
+import kr.co.publicvoid.vo.FriendshipVO;
+import kr.co.publicvoid.vo.GameImageVO;
+import kr.co.publicvoid.vo.GameLanguageVO;
+import kr.co.publicvoid.vo.GameVO;
+import kr.co.publicvoid.vo.GenreVO;
+import kr.co.publicvoid.vo.GuestbookVO;
+import kr.co.publicvoid.vo.ItemImageVO;
+import kr.co.publicvoid.vo.ItemVO;
+import kr.co.publicvoid.vo.LanguageVO;
+import kr.co.publicvoid.vo.LibraryVO;
+import kr.co.publicvoid.vo.MemberImageVO;
+import kr.co.publicvoid.vo.MemberItemVO;
+import kr.co.publicvoid.vo.MemberVO;
+import kr.co.publicvoid.vo.NotifyVO;
+import kr.co.publicvoid.vo.PublisherVO;
+import kr.co.publicvoid.vo.PurchaseVO;
+import kr.co.publicvoid.vo.ReviewVO;
+import kr.co.publicvoid.vo.SaleVO;
+import kr.co.publicvoid.vo.WishlistVO;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class MybatisUtils {
+	
+	private static String driverName;
+	private static String dbUrl;
+	private static String dbUsername;
+	private static String dbPassword;
+	
+	// static 블록으로 처음 변수를 만들도록 하겠다.
+	static {
+		Properties properties = new Properties(); // Properties 컬렉션 프레임워크 사용
+		
+		// try-with-resources 구문 사용
+		// I/O Stream, Reader, Writer 등을 사용 시 try 조건문 안에 넣을 시 블록 빠져나갈 때 자동으로 close()가 되어서 편하다
+		try(InputStream is = MybatisUtils.class.getResourceAsStream("/config.properties")){
+			if(is != null) {
+	            properties.load(is);
+	            
+	            driverName = properties.getProperty("driver-name");
+	            dbUrl = properties.getProperty("db-url");
+	            dbUsername = properties.getProperty("db-username");
+	            dbPassword = properties.getProperty("db-password");
+			}else {
+				log.info("config.properties not exists");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private static TransactionFactory transactionFactory() {
+		return new JdbcTransactionFactory();
+	}
+	
+	public static DataSource datasource() {
+		HikariConfig config = new HikariConfig();
+		config.setDriverClassName(driverName);
+		config.setJdbcUrl(dbUrl);
+		config.setUsername(dbUsername);
+		config.setPassword(dbPassword);
+		
+		HikariDataSource dataSource = new HikariDataSource(config); // 히카리 DataSource가 더 편함
+		return dataSource;
+	}
+
+	public static SqlSessionFactory sqlSessionFactory() {
+		Environment environment = new Environment("dev", transactionFactory(), datasource());
+		
+		Configuration config = new Configuration(environment);
+		
+		// 클래스 별명(Alias) 등록
+		// 여기서 config.getTypeAliasRegistry().registerAliases(packageName); 로 해도 되지만 이러면 각 클래스 위에 @Alias를 붙여줘야 하기에 그냥 이 방식으로 하도록 하겠다.
+		
+		config.setMapUnderscoreToCamelCase(true); // DB 컬럼명 언더스코어 <-> 자바 객체 필드명 캐멀 케이스 자동 변환 옵션 On
+		
+		config.getTypeAliasRegistry().registerAlias("BoardFileVO", BoardFileVO.class);
+		config.getTypeAliasRegistry().registerAlias("BoardVO", BoardVO.class);
+		config.getTypeAliasRegistry().registerAlias("CartItemVO", CartItemVO.class);
+		config.getTypeAliasRegistry().registerAlias("CartVO", CartVO.class);
+		config.getTypeAliasRegistry().registerAlias("ChatParticipantVO", ChatParticipantVO.class);
+		config.getTypeAliasRegistry().registerAlias("ChatRoomVO", ChatRoomVO.class);
+		config.getTypeAliasRegistry().registerAlias("ChatVO", ChatVO.class);
+		config.getTypeAliasRegistry().registerAlias("FriendshipVO", FriendshipVO.class);
+		config.getTypeAliasRegistry().registerAlias("GameImageVO", GameImageVO.class);
+		config.getTypeAliasRegistry().registerAlias("GameLanguageVO", GameLanguageVO.class);
+		config.getTypeAliasRegistry().registerAlias("GameVO", GameVO.class);
+		config.getTypeAliasRegistry().registerAlias("GenreVO", GenreVO.class);
+		config.getTypeAliasRegistry().registerAlias("GuestbookVO", GuestbookVO.class);
+		config.getTypeAliasRegistry().registerAlias("ItemImageVO", ItemImageVO.class);
+		config.getTypeAliasRegistry().registerAlias("ItemVO", ItemVO.class);
+		config.getTypeAliasRegistry().registerAlias("LanguageVO", LanguageVO.class);
+		config.getTypeAliasRegistry().registerAlias("LibraryVO", LibraryVO.class);
+		config.getTypeAliasRegistry().registerAlias("MemberImageVO", MemberImageVO.class);
+		config.getTypeAliasRegistry().registerAlias("MemberItemVO", MemberItemVO.class);
+		config.getTypeAliasRegistry().registerAlias("MemberVO", MemberVO.class);
+		config.getTypeAliasRegistry().registerAlias("NotifyVO", NotifyVO.class);
+		config.getTypeAliasRegistry().registerAlias("PublisherVO", PublisherVO.class);
+		config.getTypeAliasRegistry().registerAlias("PurchaseVO", PurchaseVO.class);
+		config.getTypeAliasRegistry().registerAlias("ReviewVO", ReviewVO.class);
+		config.getTypeAliasRegistry().registerAlias("SaleVO", SaleVO.class);
+		config.getTypeAliasRegistry().registerAlias("WishlistVO", WishlistVO.class);
+		
+		// 매퍼로 등록할 최상위 패키지 등록
+		config.addMappers("kr.co.publicvoid.mapper");
+		
+		return new SqlSessionFactoryBuilder().build(config);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

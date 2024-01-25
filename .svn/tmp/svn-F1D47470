@@ -1,0 +1,32 @@
+package kr.co.publicvoid.service;
+
+import java.util.List;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.publicvoid.dto.Criteria;
+import kr.co.publicvoid.mapper.BoardMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import lombok.AllArgsConstructor;
+
+public class BoardService {
+	private static final BoardService INSTANCE  = new BoardService();
+	
+	private BoardService() {}
+	
+	public static BoardService getInstance() {
+		return INSTANCE;
+	}
+	private BoardMapper boardMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(BoardMapper.class);
+	 
+	public List<BoardVO> getList(BoardVO vo) {
+		return boardMapper.getList(vo);
+	}
+	public void insert(BoardVO vo) {
+		boardMapper.insert(vo);
+	}
+	
+}

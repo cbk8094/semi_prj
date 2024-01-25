@@ -1,0 +1,12 @@
+package kr.co.publicvoid.service;
+
+public class LibraryService {
+	public static final LibraryService INSTANCE = new LibraryService();
+	
+	private LibraryService() {}
+	
+	public static LibraryService getInstance() {
+		return INSTANCE;
+	}
+	
+}

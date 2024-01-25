@@ -1,0 +1,42 @@
+package kr.co.publicvoid.dto;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 게임서치 
+ * 
+ * 박주영
+ * 231026
+ * 게임쪽은 무한스크롤 할예정
+ *
+ */
+
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class GameSearchDTO {
+	@Builder.Default
+	private int nowPage = 1; // 현재 페이지 번호 기본값 1
+	// nowPage 필드를 초기화하지 않을 때 1로 자동으로 설정
+	private Long genreNo;
+	
+	@Builder.Default
+	private int priceLimit = Integer.MAX_VALUE; // 지정 안하면 최대값 (모두)
+	private List<String> languageNoList; // 지원언어 리스트
+	
+	private boolean isSale; //할인 상품 여부
+	private String keyword; // 검색어
+	private int offset; // ?
+	
+	public GameSearchDTO(int nowPage) {
+		this.nowPage = nowPage;
+		this.offset = (nowPage - 1) * 16;
+	}
+}

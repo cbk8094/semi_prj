@@ -1,0 +1,80 @@
+package kr.co.publicvoid.controller.board;
+
+import java.io.IOException;
+import java.lang.reflect.Member;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.publicvoid.service.BoardService;
+import kr.co.publicvoid.service.MemberService;
+import kr.co.publicvoid.util.WebUtils;
+import kr.co.publicvoid.vo.BoardVO;
+import kr.co.publicvoid.vo.MemberVO;
+
+
+@WebServlet("/board/modify")
+public class BoardModifyController extends HttpServlet{
+	private BoardService boardService = BoardService.getInstance();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		MemberVO member = WebUtils.getMember(req);
+		String memberNoStr = req.getParameter("memberNo");
+	    Long memberNo = Long.parseLong(memberNoStr);
+		String boarNoStr = req.getParameter("boardNo");
+		Long boardNo = Long.parseLong(boarNoStr);
+		String boardTitle = req.getParameter("boardTitle");
+		String boardContent = req.getParameter("boardContent");
+		String boardCategory = req.getParameter("boardCategory");
+		String pageNum = req.getParameter("pageNum");
+		String amount = req.getParameter("amount");
+		
+		BoardVO board = boardService.selectOne(boardNo);
+		
+		req.setAttribute("boardList", board);
+		req.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		MemberVO member = WebUtils.getMember(req);
+		String memberNoStr = req.getParameter("memberNo");
+		String boarNoStr = req.getParameter("boardNo");
+		Long memberNo = Long.parseLong(memberNoStr);
+		Long boardNo = Long.parseLong(boarNoStr);
+		String boardTitle = req.getParameter("boardTitle");
+		String boardContent = req.getParameter("boardContent");
+		String boardCategory = req.getParameter("boardCategory");
+		String pageNum = req.getParameter("pageNum");
+		String amount = req.getParameter("amount");
+		
+		BoardVO board = boardService.selectOne(boardNo);
+		if (board.getMemberNo().equals(member.getMemberNo()) || member.isAdmin()) {
+
+				board = BoardVO.builder()
+		        
+		        .boardCategory("qna") 
+		        .boardTitle(boardTitle)
+		        .boardContent(boardContent)
+		        .build();
+		    
+		    // insert query
+		    boardService.update(board);  
+		    
+		    // QNA 데이터 재조회(특정 화면으로 이동하고자 하는 경우 재조회를 통해 데이터를 다시 조회하여 넘김)
+		    
+			System.out.println(boardService);
+			req.setAttribute("boardList", board);
+	 	}
+	 	req.getRequestDispatcher("/WEB-INF/views/board/qna.jsp").forward(req, resp);
+		}
+	
+	}	
+

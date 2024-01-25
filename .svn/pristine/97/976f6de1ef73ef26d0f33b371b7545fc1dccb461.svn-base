@@ -1,0 +1,217 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+                <!-- 탑바 시작 -->
+                <nav class="navbar navbar-expand navbar-light bg-custom-black topbar mb-4 static-top shadow">
+
+                    <!-- 탑바에 있는 사이드바 토글 버튼 -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- 검색 부분 -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="검색어를 입력해주세요"
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- 탑바 내비게이션 -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- 검색 드롭다운 (Visible Only XS, 작은 너비에서만 보임) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="javascript:;" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- 드롭다운 - 메시지 -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- 내비게이션 아이템 - 알림 -->
+                        <c:if test="${sessionScope.member ne null }">
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="javascript:;" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- 드롭다운 - 알림 -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    알림 센터
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">2019/12/20 11:22:31</div>
+                                        <span class="font-weight-bold">환영합니다!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">2019/12/21 14:23:31</div>
+                                        컨커러스 블레이드의 할인이 시작됐습니다!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">2023/10/19 00:12:12</div>
+                                        스팀 잔고가 부족합니다!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="javascript:;">모든 알림 보기</a>
+                            </div>
+                        </li>
+
+                        <!-- 내비게이션 아이템 - 메시지 -->
+                        
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="javascript:;" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- 메시지 카운터 -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- 드롭다운 - 메시지 -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    메시지 센터
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="${pageContext.request.contextPath }/resources/sbadmin2/img/undraw_profile_1.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">ㅎㅇ</div>
+                                        <div class="small text-gray-500">정민 · 58분 전</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="${pageContext.request.contextPath }/resources/sbadmin2/img/undraw_profile_2.svg"
+                                            alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">안녕?</div>
+                                        <div class="small text-gray-500">정민 · 1일 전</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="${pageContext.request.contextPath }/resources/sbadmin2/img/undraw_profile_3.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">하하</div>
+                                        <div class="small text-gray-500">정민 · 2일 전</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">걍 적어봄</div>
+                                        <div class="small text-gray-500">정민 · 2주 전</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="javascript:;">메시지 더 보기</a>
+                            </div>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        </c:if>
+                        <!-- 내비게이션 아이템 - 회원 프로필 -->
+
+                        <!-- 회원 정보 -->
+						<c:if test="${sessionScope.member eq null }">
+		                	<a class="dropdown-item" href="/member/login">
+		                    	<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+		                        	로그인
+		                    </a>
+		                    <a class="dropdown-item" href="/member/signup">
+		                    	<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+								회원가입
+							</a>
+						</c:if>
+						<c:if test="${sessionScope.member ne null }">
+						<li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="javascript:;" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small text-left">
+                                	 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                	 메뉴
+                                </span>
+								<img class="img-profile rounded-circle" src="${pageContext.request.contextPath }/resources/sbadmin2/img/undraw_profile.svg">
+							</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in bg-custom-black border-custom-black" aria-labelledby="userDropdown">
+		                                <a class="dropdown-item" href="/member/profile">
+		                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    프로필
+		                                </a>
+		                                <a class="dropdown-item" href="/member/config">
+		                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    설정
+		                                </a>
+		                                <a class="dropdown-item" href="/member/record">
+		                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    활동기록
+		                                </a>
+		                                <div class="dropdown-divider border-top-custom-black"></div>
+		                                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#logoutModal">
+		                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    로그아웃
+		                                </a>
+								</div>
+                        </li>
+						</c:if>
+                    </ul>
+                </nav>
+                <!-- 탑바 끝 -->

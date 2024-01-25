@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="kr.co.publicvoid.mapper.MemberMapper">
+	
+	<!-- 회원 등록(회원 코드(자동부여, 중복X), 아이디, 비밀번호, 닉네임) -->
+	<insert id="insert">
+		insert into member(member_code, member_id, member_pw, member_nickname) values (#{memberCode}, #{memberId}, #{memberPw}, #{memberNickname});
+	</insert>
+	
+	<!-- 회원 전체 조회 -->
+	<select id="getList" resultType="MemberVO">
+	select * from member
+	</select>
+	
+	<!-- 회원 개인 조회 -->
+	<select id="read" resultType="MemberVO">
+		select * from member where member_no = ${memberNo}
+	</select>
+	
+	<!-- 회원 정보 변경 
+		단일 값 변경 가능
+	-->
+	<update id="update">
+		update member
+		<set>
+			<if test="memberId != null"> member_id = #{memberId}, </if>
+			<if test="memberPw != null"> member_pw = #{memberPw}, </if>
+			<if test="memberNickname != null"> member_nickname = #{memberNickname}, </if>
+			<if test="memberIntroduce != null"> member_introduce = #{memberIntroduce}, </if>
+		</set>
+		where member_no = #{memberNo}
+	</update>
+	
+	
+	<!-- 회원 삭제 -->
+	<delete id="delete">
+		delete from member where member_no = #{memberNo}
+	</delete>
+	
+	
+	<!-- 회원 코드 중복 조회 1 = 있음, 0 = 없음 -->
+	<select id="codeCnt" resultType="int">
+		select count(*) from member where member_code = ${memberCode}
+	</select>
+
+	<!-- 회원 아이디 중복 조회 1 = 있음, 0 = 없음 -->
+	<select id="idRead" resultType="int">
+		select count(*) from member where member_Id = ${memberId}
+	</select>
+	
+	
+	
+</mapper>

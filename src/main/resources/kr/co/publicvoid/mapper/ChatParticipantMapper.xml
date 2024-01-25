@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.publicvoid.mapper.ChatParticipantMapper">
+
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into chat_participant(chat_room_no, member_no) 
+		values (#{chatRoomNo}, #{memberNo})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update chat_participant set 
+		chat_room_no = #{chatRoomNo}, member_no = #{memberNo}
+		where chat_participant_no = #{chatParticipantNo} limit 1
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from chat_participant where chat_participant_no = #{chatParticipantNo} limit 1
+	</delete>
+
+	<!-- 목록 조회 -->
+	<select id="selectList" resultType="ChatParticipantVO">
+		select * from chat_participant order by 1 desc
+	</select>
+	
+	<!-- 단일 조회 -->
+	<select id="selectOne" resultType="ChatParticipantVO">
+		select * from chat_participant where chat_participant_no = #{chatParticipantNo}
+	</select>
+	
+</mapper>
+

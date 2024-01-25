@@ -1,0 +1,8 @@
+package kr.co.publicvoid.service;
+
+import kr.co.publicvoid.mapper.GameLanguageMapper;
+import kr.co.publicvoid.util.MybatisUtils;
+
+public class GameLanguageService {
+	private GameLanguageMapper gameLanguageMapper = MybatisUtils.sqlSessionFactory().openSession(true).getMapper(GameLanguageMapper.class);
+}
